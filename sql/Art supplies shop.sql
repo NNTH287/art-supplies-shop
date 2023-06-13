@@ -1,3 +1,15 @@
+use master
+go
+
+drop database if exists ArtSuppliesShop 
+go
+
+create database ArtSuppliesShop
+go
+
+use ArtSuppliesShop
+go
+
 CREATE TABLE [User] (
   [id] int PRIMARY KEY NOT NULL IDENTITY(1, 1),
   [roleId] int NOT NULL,
@@ -20,7 +32,7 @@ CREATE TABLE [Product] (
   [id] int PRIMARY KEY NOT NULL IDENTITY(1, 1),
   [categoryId] int NOT NULL,
   [name] nvarchar(200),
-  [description] nvarchar(10000),
+  [description] nvarchar(4000),
   [price] float NOT NULL DEFAULT (0),
   [discount] int DEFAULT (0),
   [quantity] int NOT NULL DEFAULT (0)
