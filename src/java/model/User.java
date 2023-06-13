@@ -85,9 +85,4 @@ public class User {
                 + ", email=" + email
                 + ", phone=" + phone + "}";
     }
-
-    public static void main(String[] args) {
-        User u = new User(0, 0, "huy", "nguyen", "mail", "09113");
-        System.out.println(u);
-    }
 }
