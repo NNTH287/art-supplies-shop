@@ -12,37 +12,38 @@ go
 
 CREATE TABLE [User] (
   [id] int PRIMARY KEY NOT NULL IDENTITY(1, 1),
-  [roleId] int NOT NULL,
+  [role] varchar(15) NOT NULL,
   [firstName] nvarchar(50),
   [lastName] nvarchar(50),
   [email] varchar(50),
+  [password] varchar(20),
   [phone] varchar(15)
+)
+GO
+
+CREATE TABLE [UserPayment] (
+  [userId] int NOT NULL,
+  [paymentId] int NOT NULL,
+  [paymentInfo] varchar(1000) NOT NULL,
+  PRIMARY KEY ([userId], [paymentId])
 )
 GO
 
 CREATE TABLE [Payment] (
   [id] int PRIMARY KEY NOT NULL IDENTITY(1, 1),
-  [userId] int NOT NULL,
-  [paymentType] varchar(50) NOT NULL,
-  [paymentInfo] varchar(100) NOT NULL
+  [paymentType] varchar(50) NOT NULL
 )
 GO
 
 CREATE TABLE [Product] (
   [id] int PRIMARY KEY NOT NULL IDENTITY(1, 1),
   [categoryId] int NOT NULL,
+  [suplierId] int NOT NULL,
   [name] nvarchar(200),
   [description] nvarchar(4000),
   [price] float NOT NULL DEFAULT (0),
-  [discount] int DEFAULT (0),
+  [discount] float DEFAULT (0),
   [quantity] int NOT NULL DEFAULT (0)
-)
-GO
-
-CREATE TABLE [InCategory] (
-  [productId] int NOT NULL,
-  [categoryId] int NOT NULL,
-  PRIMARY KEY ([productId], [categoryId])
 )
 GO
 
@@ -52,17 +53,24 @@ CREATE TABLE [Category] (
 )
 GO
 
-CREATE TABLE [ProductReview] (
+CREATE TABLE [Supplier] (
   [id] int PRIMARY KEY NOT NULL IDENTITY(1, 1),
+  [name] nvarchar(20) NOT NULL
+)
+GO
+
+CREATE TABLE [ProductReview] (
   [userId] int NOT NULL,
   [productId] int NOT NULL,
-  [content] nvarchar(2000)
+  [content] nvarchar(2000),
+  PRIMARY KEY ([userId], [productId])
 )
 GO
 
 CREATE TABLE [Order] (
   [id] int PRIMARY KEY NOT NULL IDENTITY(1, 1),
   [userId] int NOT NULL,
+  [status] nvarchar(255) NOT NULL,
   [createdTime] datetime
 )
 GO
@@ -77,6 +85,7 @@ GO
 
 CREATE TABLE [Cart] (
   [id] int PRIMARY KEY NOT NULL,
+  [sessionId] varchar(32) NOT NULL,
   [userId] int NOT NULL
 )
 GO
@@ -89,35 +98,16 @@ CREATE TABLE [CartItem] (
 )
 GO
 
-CREATE TABLE [Role] (
-  [id] int PRIMARY KEY NOT NULL IDENTITY(1, 1),
-  [roleName] varchar(15) NOT NULL
-)
+ALTER TABLE [UserPayment] ADD FOREIGN KEY ([userId]) REFERENCES [User] ([id])
 GO
 
-CREATE TABLE [RolePermission] (
-  [roleId] int NOT NULL,
-  [permissionId] int NOT NULL,
-  PRIMARY KEY ([roleId], [permissionId])
-)
+ALTER TABLE [UserPayment] ADD FOREIGN KEY ([paymentId]) REFERENCES [Payment] ([id])
 GO
 
-CREATE TABLE [Permission] (
-  [id] int PRIMARY KEY NOT NULL IDENTITY(1, 1),
-  [permissionName] varchar(20) NOT NULL
-)
+ALTER TABLE [Product] ADD FOREIGN KEY ([categoryId]) REFERENCES [Category] ([id])
 GO
 
-ALTER TABLE [User] ADD FOREIGN KEY ([roleId]) REFERENCES [Role] ([id])
-GO
-
-ALTER TABLE [Payment] ADD FOREIGN KEY ([userId]) REFERENCES [User] ([id])
-GO
-
-ALTER TABLE [InCategory] ADD FOREIGN KEY ([productId]) REFERENCES [Product] ([id])
-GO
-
-ALTER TABLE [InCategory] ADD FOREIGN KEY ([categoryId]) REFERENCES [Category] ([id])
+ALTER TABLE [Product] ADD FOREIGN KEY ([suplierId]) REFERENCES [Supplier] ([id])
 GO
 
 ALTER TABLE [ProductReview] ADD FOREIGN KEY ([userId]) REFERENCES [User] ([id])
@@ -142,10 +132,4 @@ ALTER TABLE [CartItem] ADD FOREIGN KEY ([cartId]) REFERENCES [Cart] ([id])
 GO
 
 ALTER TABLE [CartItem] ADD FOREIGN KEY ([productId]) REFERENCES [Product] ([id])
-GO
-
-ALTER TABLE [RolePermission] ADD FOREIGN KEY ([roleId]) REFERENCES [Role] ([id])
-GO
-
-ALTER TABLE [RolePermission] ADD FOREIGN KEY ([permissionId]) REFERENCES [Permission] ([id])
 GO
