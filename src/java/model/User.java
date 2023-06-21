@@ -1,30 +1,33 @@
-package model.entity;
+package model;
 
 public class User {
     private int id;
-    private int roleId;
+    private String role;
     private String firstName;
     private String lastName;
     private String email;
+    private String password;
     private String phone;
 
     public User() {
     }
 
-    public User(int id, int roleId, String firstName, String lastName, String email, String phone) {
+    public User(int id, String role, String firstName, String lastName, String email, String password, String phone) {
         this.id = id;
-        this.roleId = roleId;
+        this.role = role;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.password = password;
         this.phone = phone;
     }
 
-    public User(int roleId, String firstName, String lastName, String email, String phone) {
-        this.roleId = roleId;
+    public User(String role, String firstName, String lastName, String email, String password, String phone) {
+        this.role = role;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.password = password;
         this.phone = phone;
     }
 
@@ -36,12 +39,12 @@ public class User {
         this.id = id;
     }
 
-    public int getRoleId() {
-        return roleId;
+    public String getRole() {
+        return role;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getFirstName() {
@@ -68,6 +71,14 @@ public class User {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getPhone() {
         return phone;
     }
@@ -79,10 +90,11 @@ public class User {
     @Override
     public String toString() {
         return "User{id=" + id
-                + ", roleId=" + roleId
+                + ", role=" + role
                 + ", firstName=" + firstName
                 + ", lastName=" + lastName
                 + ", email=" + email
+                + ", password=" + password
                 + ", phone=" + phone + "}";
     }
 }

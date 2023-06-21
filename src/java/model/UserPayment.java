@@ -1,24 +1,21 @@
 package model;
 
-public class Payment {
+public class UserPayment {
     private int id;
     private int userId;
-    private String paymentType;
     private String paymentInfo;
 
-    public Payment() {
+    public UserPayment() {
     }
 
-    public Payment(int id, int userId, String paymentType, String paymentInfo) {
+    public UserPayment(int id, int userId, String paymentType, String paymentInfo) {
         this.id = id;
         this.userId = userId;
-        this.paymentType = paymentType;
         this.paymentInfo = paymentInfo;
     }
 
-    public Payment(int userId, String paymentType, String paymentInfo) {
+    public UserPayment(int userId, String paymentType, String paymentInfo) {
         this.userId = userId;
-        this.paymentType = paymentType;
         this.paymentInfo = paymentInfo;
     }
 
@@ -38,14 +35,6 @@ public class Payment {
         this.userId = userId;
     }
 
-    public String getPaymentType() {
-        return paymentType;
-    }
-
-    public void setPaymentType(String paymentType) {
-        this.paymentType = paymentType;
-    }
-
     public String getPaymentInfo() {
         return paymentInfo;
     }
@@ -56,9 +45,8 @@ public class Payment {
 
     @Override
     public String toString() {
-        return "Payment{id=" + id
+        return "UserPayment{id=" + id
                 + ", userId=" + userId
-                + ", paymentType=" + paymentType
                 + ", paymentInfo=" + paymentInfo + "}";
     }
 }

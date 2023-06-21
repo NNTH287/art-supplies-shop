@@ -1,4 +1,4 @@
-package model.entity;
+package model;
 
 public class CartItem {
     private int id;

@@ -1,20 +1,22 @@
-package model.entity;
+package model;
 
 public class Product {
     private int id;
     private int categoryId;
+    private int SupplierId;
     private String name;
     private String description;
     private double price;
-    private int discount;
+    private double discount;
     private int quantity;
 
     public Product() {
     }
 
-    public Product(int id, int categoryId, String name, String description, double price, int discount, int quantity) {
+    public Product(int id, int categoryId, int SupplierId, String name, String description, double price, double discount, int quantity) {
         this.id = id;
         this.categoryId = categoryId;
+        this.SupplierId = SupplierId;
         this.name = name;
         this.description = description;
         this.price = price;
@@ -36,6 +38,14 @@ public class Product {
 
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public int getSupplierId() {
+        return SupplierId;
+    }
+
+    public void setSupplierId(int SupplierId) {
+        this.SupplierId = SupplierId;
     }
 
     public String getName() {
@@ -62,11 +72,11 @@ public class Product {
         this.price = price;
     }
 
-    public int getDiscount() {
+    public double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(int discount) {
+    public void setDiscount(double discount) {
         this.discount = discount;
     }
 
