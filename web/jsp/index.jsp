@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="model.Category, java.sql.ResultSet, java.util.Vector, java.util.Hashtable, java.util.Enumeration, java.util.LinkedHashMap" %>
+<%@page import="model.Category, java.sql.ResultSet, java.util.Enumeration, java.util.LinkedHashMap, java.util.Collections" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -238,178 +238,29 @@
 
 
         <!-- Categories Start -->
-<!--        <div>
-            <ul>
-            <% 
-//                LinkedHashMap<Category, Integer> categories = (LinkedHashMap<Category, Integer>)request.getAttribute("categories");
-//                Enumeration<Category> e = Collections.enumeration(categories.keySet())
-//                while(e.hasMoreElements()) {
-//                    Category category = e.nextElement(); %>
-                    <li>
-                        <%--<%= // category.getName() %>: <%= categories.get(category)%>--%>
-                    </li>
-                <% //}%>
-            </ul>
-        </div>-->
+        
         <div class="container-fluid pt-5">
             <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Categories</span></h2>
             <div class="row px-xl-5 pb-3">
-                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                    <a class="text-decoration-none" href="">
-                        <div class="cat-item d-flex align-items-center mb-4">
-                            <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                <img class="img-fluid" src="${pageContext.request.contextPath}/img/cat-1.jpg" alt="">
-                            </div>
-                            <div class="flex-fill pl-3">
-                                <h6>Category Name</h6>
-                                <small class="text-body">100 Products</small>
-                            </div>
+                <% 
+                    LinkedHashMap<Category, Integer> categories = (LinkedHashMap<Category, Integer>)request.getAttribute("categories");
+                    Enumeration<Category> enu = Collections.enumeration(categories.keySet());
+                    while (enu.hasMoreElements()) {
+                        Category category = enu.nextElement();%>
+                        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                            <a class="text-decoration-none" href="">
+                                <div class="cat-item d-flex align-items-center mb-4">
+                                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                                        <img class="img-fluid" src="${pageContext.request.contextPath}/img/cate-<%= category.getId()%>.jpg" alt="">
+                                    </div>
+                                    <div class="flex-fill pl-3">
+                                        <h6><%=  category.getName() %></h6>
+                                        <small class="text-body"><%= categories.get(category)%> Products <%= category.getId()%> </small>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                    <a class="text-decoration-none" href="">
-                        <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                            <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                <img class="img-fluid" src="${pageContext.request.contextPath}/img/cat-2.jpg" alt="">
-                            </div>
-                            <div class="flex-fill pl-3">
-                                <h6>Category Name</h6>
-                                <small class="text-body">100 Products</small>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                    <a class="text-decoration-none" href="">
-                        <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                            <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                <img class="img-fluid" src="${pageContext.request.contextPath}/img/cat-3.jpg" alt="">
-                            </div>
-                            <div class="flex-fill pl-3">
-                                <h6>Category Name</h6>
-                                <small class="text-body">100 Products</small>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                    <a class="text-decoration-none" href="">
-                        <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                            <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                <img class="img-fluid" src="${pageContext.request.contextPath}/img/cat-4.jpg" alt="">
-                            </div>
-                            <div class="flex-fill pl-3">
-                                <h6>Category Name</h6>
-                                <small class="text-body">100 Products</small>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                    <a class="text-decoration-none" href="">
-                        <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                            <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                <img class="img-fluid" src="${pageContext.request.contextPath}/img/cat-4.jpg" alt="">
-                            </div>
-                            <div class="flex-fill pl-3">
-                                <h6>Category Name</h6>
-                                <small class="text-body">100 Products</small>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                    <a class="text-decoration-none" href="">
-                        <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                            <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                <img class="img-fluid" src="${pageContext.request.contextPath}/img/cat-3.jpg" alt="">
-                            </div>
-                            <div class="flex-fill pl-3">
-                                <h6>Category Name</h6>
-                                <small class="text-body">100 Products</small>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                    <a class="text-decoration-none" href="">
-                        <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                            <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                <img class="img-fluid" src="${pageContext.request.contextPath}/img/cat-2.jpg" alt="">
-                            </div>
-                            <div class="flex-fill pl-3">
-                                <h6>Category Name</h6>
-                                <small class="text-body">100 Products</small>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                    <a class="text-decoration-none" href="">
-                        <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                            <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                <img class="img-fluid" src="${pageContext.request.contextPath}/img/cat-1.jpg" alt="">
-                            </div>
-                            <div class="flex-fill pl-3">
-                                <h6>Category Name</h6>
-                                <small class="text-body">100 Products</small>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                    <a class="text-decoration-none" href="">
-                        <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                            <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                <img class="img-fluid" src="${pageContext.request.contextPath}/img/cat-2.jpg" alt="">
-                            </div>
-                            <div class="flex-fill pl-3">
-                                <h6>Category Name</h6>
-                                <small class="text-body">100 Products</small>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                    <a class="text-decoration-none" href="">
-                        <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                            <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                <img class="img-fluid" src="${pageContext.request.contextPath}/img/cat-1.jpg" alt="">
-                            </div>
-                            <div class="flex-fill pl-3">
-                                <h6>Category Name</h6>
-                                <small class="text-body">100 Products</small>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                    <a class="text-decoration-none" href="">
-                        <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                            <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                <img class="img-fluid" src="${pageContext.request.contextPath}/img/cat-4.jpg" alt="">
-                            </div>
-                            <div class="flex-fill pl-3">
-                                <h6>Category Name</h6>
-                                <small class="text-body">100 Products</small>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                    <a class="text-decoration-none" href="">
-                        <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                            <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                <img class="img-fluid" src="${pageContext.request.contextPath}/img/cat-3.jpg" alt="">
-                            </div>
-                            <div class="flex-fill pl-3">
-                                <h6>Category Name</h6>
-                                <small class="text-body">100 Products</small>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                <%  }%>
             </div>
         </div>
         <!-- Categories End -->
