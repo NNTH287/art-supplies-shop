@@ -40,4 +40,3 @@ nbdist/
 # End of https://www.toptal.com/developers/gitignore/api/java,netbeans
 
 ### My ignore ###
-./src/java/dao/UserDAO.java
