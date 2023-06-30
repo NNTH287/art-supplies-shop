@@ -56,7 +56,7 @@
                 </div>
                 <div class="col-lg-4 col-6 text-right">
                     <% if(session.getAttribute("userId") == null) {%>
-                    <a href="login" class="btn btn-primary">Log In</a>
+                    <a href="login" class="btn btn-primary mx-2">Log In</a>
                     <a href="signUp" class="btn btn-primary">Sign Up</a>
                     <%} else {%>
                     <a href="logout" class="btn btn-primary">Log Out</a>

@@ -58,13 +58,13 @@ public class HomeController extends HttpServlet {
             categories.entrySet().stream()
                     .sorted(Map.Entry.<Category, Integer>comparingByKey(comparator))
                     .forEachOrdered(e -> sortedMapByKey.put(e.getKey(), e.getValue()));
-            System.out.println("Sorted map by key: " + sortedMapByKey);
+//            System.out.println("Sorted map by key: " + sortedMapByKey);
             
-            Enumeration<Category> enu = Collections.enumeration(sortedMapByKey.keySet());
-            while (enu.hasMoreElements()) {
-                Category category = enu.nextElement();
-                System.out.println(category.getName() + " " + categories.get(category));
-            }
+//            Enumeration<Category> enu = Collections.enumeration(sortedMapByKey.keySet());
+//            while (enu.hasMoreElements()) {
+//                Category category = enu.nextElement();
+//                System.out.println(category.getName() + " " + categories.get(category));
+//            }
             
             request.setAttribute("categories", sortedMapByKey);
             request.getRequestDispatcher("/jsp/index.jsp").forward(request, response);
