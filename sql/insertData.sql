@@ -48,7 +48,7 @@ VALUES ('Nabii'),
 	('Van Gogh'),
 	('Holbein'),
 	('White Nights'),
-	('Mono'),
+	('Tombow'),
 	('Nobrand')
 
 INSERT INTO [Product]
