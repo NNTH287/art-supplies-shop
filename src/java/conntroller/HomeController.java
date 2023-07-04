@@ -1,5 +1,6 @@
 package conntroller;
 
+import dao.BrandDAO;
 import dao.CategoryDAO;
 import dao.ProductDAO;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Vector;
 import model.Category;
+import model.Brand;
 import model.Product;
 import java.util.Comparator;
 
@@ -45,7 +47,7 @@ public class HomeController extends HttpServlet {
             }
             //Sort categrories (the "Others" category be the last)
             LinkedHashMap<Category, Integer> categories = new LinkedHashMap<>();
-            Comparator<Category> comparator = Comparator.comparing(
+            Comparator<Category> categoryComparator = Comparator.comparing(
                     Category::getName, (String c1, String c2) -> {
                         if (c1.equals("Others")) {
                             return 1;
@@ -56,15 +58,40 @@ public class HomeController extends HttpServlet {
                         return c1.compareTo(c2);
                     });
             categoriesUnsorted.entrySet().stream()
-                    .sorted(Map.Entry.<Category, Integer>comparingByKey(comparator))
+                    .sorted(Map.Entry.<Category, Integer>comparingByKey(categoryComparator))
                     .forEachOrdered(e -> categories.put(e.getKey(), e.getValue()));
+            
+            //Get brands ans its number of products from database
+            BrandDAO bdao = new BrandDAO();
+            Vector<Brand> brandsVector = bdao.getAll();
+            Map<Brand, Integer> brandsUnsorted = new Hashtable<>();
+            for (Brand brand : brandsVector) {
+                int numberOfProducts = bdao.getNumberOfProductsIn(brand.getId());
+                brandsUnsorted.put(brand, numberOfProducts);
+            }
+            //Sort brands (the "Nobrand" category be the last)
+            LinkedHashMap<Brand, Integer> brands = new LinkedHashMap<>();
+            Comparator<Brand> brandComparator = Comparator.comparing(
+                    Brand::getName, (String c1, String c2) -> {
+                        if (c1.equals("Nobrand")) {
+                            return 1;
+                        }
+                        if (c2.equals("Nobrand")) {
+                            return -1;
+                        }
+                        return c1.compareTo(c2);
+                    });
+            brandsUnsorted.entrySet().stream()
+                    .sorted(Map.Entry.<Brand, Integer>comparingByKey(brandComparator))
+                    .forEachOrdered(e -> brands.put(e.getKey(), e.getValue()));
             
             //Get products from database
             ProductDAO pdao = new ProductDAO();
             Vector<Product> products = pdao.getAll();
             
-            request.setAttribute("products", products);
+            request.setAttribute("brands", brands);
             request.setAttribute("categories", categories);
+            request.setAttribute("products", products);
             request.getRequestDispatcher("/jsp/index.jsp").forward(request, response);
         }
     }

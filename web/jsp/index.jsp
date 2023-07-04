@@ -81,23 +81,9 @@
                     </a>
                     <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
                         <div class="navbar-nav w-100">
-                            <div class="nav-item dropdown dropright">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Dresses <i class="fa fa-angle-right float-right mt-1"></i></a>
-                                <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
-                                    <a href="" class="dropdown-item">Men's Dresses</a>
-                                    <a href="" class="dropdown-item">Women's Dresses</a>
-                                    <a href="" class="dropdown-item">Baby's Dresses</a>
-                                </div>
-                            </div>
-                            <a href="" class="nav-item nav-link">Shirts</a>
-                            <a href="" class="nav-item nav-link">Jeans</a>
-                            <a href="" class="nav-item nav-link">Swimwear</a>
-                            <a href="" class="nav-item nav-link">Sleepwear</a>
-                            <a href="" class="nav-item nav-link">Sportswear</a>
-                            <a href="" class="nav-item nav-link">Jumpsuits</a>
-                            <a href="" class="nav-item nav-link">Blazers</a>
-                            <a href="" class="nav-item nav-link">Jackets</a>
-                            <a href="" class="nav-item nav-link">Shoes</a>
+                            <c:forEach items="${categories}" var="cate">
+                                <a href="" class="nav-item nav-link">${cate.key.name}</a>
+                            </c:forEach>
                         </div>
                     </nav>
                 </div>
@@ -112,17 +98,18 @@
                         </button>
                         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                             <div class="navbar-nav mr-auto py-0">
-                                <a href="index.html" class="nav-item nav-link active">Home</a>
-                                <a href="shop.html" class="nav-item nav-link">Shop</a>
-                                <a href="detail.html" class="nav-item nav-link">Shop Detail</a>
+                                <a href="" class="nav-item nav-link active">Home</a>
+                                <a href="" class="nav-item nav-link">On sale</a>
+                                <a href="" class="nav-item nav-link">Combo</a>
                                 <div class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down mt-1"></i></a>
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Brands <i class="fa fa-angle-down mt-1"></i></a>
                                     <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-                                        <a href="cart.html" class="dropdown-item">Shopping Cart</a>
-                                        <a href="checkout.html" class="dropdown-item">Checkout</a>
+                                        <c:forEach items="${brands}" var="brand">
+                                            <a href="" class="dropdown-item">${brand.key.name}</a>
+                                        </c:forEach>
                                     </div>
                                 </div>
-                                <a href="contact.html" class="nav-item nav-link">Contact</a>
+                                <a href="" class="nav-item nav-link">About us</a>
                             </div>
                             <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                                 <a href="" class="btn px-0">
@@ -264,6 +251,29 @@
         </div>
         <!-- Categories End -->
 
+        <!-- Brands Start -->
+        <div class="container-fluid pt-5">
+            <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Brands</span></h2>
+            <div class="row px-xl-5 pb-3">
+                <c:forEach items="${brands}" var="brand">
+                    <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                        <a class="text-decoration-none" href="">
+                            <div class="cat-item d-flex align-items-center mb-4">
+                                <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                                    <img class="img-fluid" src="${pageContext.request.contextPath}/img/brand-${brand.key.id}.jpg" alt="">
+                                </div>
+                                <div class="flex-fill pl-3">
+                                    <h6>${brand.key.name}</h6>
+                                    <small class="text-body">${cate.value} Products</small>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+        <!-- Brands End -->
+        
         <!-- Products Start -->
         <div class="container-fluid pt-5 pb-3">
             <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Featured Products</span></h2>
@@ -330,7 +340,7 @@
 
 
         <!-- Recent Products Start -->
-        <div class="container-fluid pt-5 pb-3">
+        <!--<div class="container-fluid pt-5 pb-3">
             <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Recent Products</span></h2>
             <div class="row px-xl-5">
                 <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
@@ -550,7 +560,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        <!--</div>-->
         <!-- Products End -->
 
 
