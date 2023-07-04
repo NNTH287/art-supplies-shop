@@ -43,7 +43,7 @@ VALUES ('Paint'),
 	('Brush'),
 	('Others')
 
-INSERT INTO [Supplier]
+INSERT INTO [Brand]
 VALUES ('Nabii'),
 	('Van Gogh'),
 	('Holbein'),

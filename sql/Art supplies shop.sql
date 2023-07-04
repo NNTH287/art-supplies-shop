@@ -38,7 +38,7 @@ GO
 CREATE TABLE [Product] (
   [id] int PRIMARY KEY NOT NULL IDENTITY(1, 1),
   [categoryId] int NOT NULL,
-  [suplierId] int NOT NULL,
+  [brandId] int NOT NULL,
   [name] nvarchar(200),
   [description] nvarchar(4000),
   [price] float NOT NULL DEFAULT (0),
@@ -53,7 +53,7 @@ CREATE TABLE [Category] (
 )
 GO
 
-CREATE TABLE [Supplier] (
+CREATE TABLE [Brand] (
   [id] int PRIMARY KEY NOT NULL IDENTITY(1, 1),
   [name] nvarchar(20) NOT NULL
 )
@@ -107,7 +107,7 @@ GO
 ALTER TABLE [Product] ADD FOREIGN KEY ([categoryId]) REFERENCES [Category] ([id])
 GO
 
-ALTER TABLE [Product] ADD FOREIGN KEY ([suplierId]) REFERENCES [Supplier] ([id])
+ALTER TABLE [Product] ADD FOREIGN KEY ([brandId]) REFERENCES [Brand] ([id])
 GO
 
 ALTER TABLE [ProductReview] ADD FOREIGN KEY ([userId]) REFERENCES [User] ([id])

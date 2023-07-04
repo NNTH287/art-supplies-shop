@@ -1,13 +1,13 @@
 package model;
 
-public class Supplier {
+public class Brand {
     private int id;
     private String name;
 
-    public Supplier() {
+    public Brand() {
     }
 
-    public Supplier(int id, String name) {
+    public Brand(int id, String name) {
         this.id = id;
         this.name = name;
     }

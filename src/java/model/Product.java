@@ -3,7 +3,7 @@ package model;
 public class Product {
     private int id;
     private int categoryId;
-    private int supplierId;
+    private int brandId;
     private String name;
     private String description;
     private double price;
@@ -13,10 +13,10 @@ public class Product {
     public Product() {
     }
 
-    public Product(int id, int categoryId, int supplierId, String name, String description, double price, double discount, int quantity) {
+    public Product(int id, int categoryId, int brandId, String name, String description, double price, double discount, int quantity) {
         this.id = id;
         this.categoryId = categoryId;
-        this.supplierId = supplierId;
+        this.brandId = brandId;
         this.name = name;
         this.description = description;
         this.price = price;
@@ -41,11 +41,11 @@ public class Product {
     }
 
     public int getSupplierId() {
-        return supplierId;
+        return brandId;
     }
 
-    public void setSupplierId(int supplierId) {
-        this.supplierId = supplierId;
+    public void setSupplierId(int brandId) {
+        this.brandId = brandId;
     }
 
     public String getName() {
@@ -92,7 +92,7 @@ public class Product {
     public String toString() {
         return "Product{id=" + id
                 + ", categoryId=" + categoryId
-                + ", supplierId=" + supplierId
+                + ", brandId=" + brandId
                 + ", name=" + name
                 + ", description=" + description
                 + ", price=" + price

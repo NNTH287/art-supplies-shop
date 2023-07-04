@@ -13,7 +13,7 @@ public class ProductDAO extends jdbc.DBConnect {
         Vector<Product> products = new Vector<>();
         String sql = "SELECT [id]\n"
                 + "      ,[categoryId]\n"
-                + "      ,[suplierId]\n"
+                + "      ,[brandId]\n"
                 + "      ,[name]\n"
                 + "      ,[description]\n"
                 + "      ,[price]\n"
@@ -25,13 +25,13 @@ public class ProductDAO extends jdbc.DBConnect {
             while (rs.next()) {
                 int id = rs.getInt(1);
                 int categoryId = rs.getInt(2);
-                int supplierId = rs.getInt(3);
+                int brandId = rs.getInt(3);
                 String name = rs.getString(4);
                 String description = rs.getString(5);
                 double price = rs.getDouble(6);
                 double discount = rs.getDouble(7);
                 int quantity = rs.getInt(8);
-                products.add(new Product(id, categoryId, supplierId, name, description, price, discount, quantity));
+                products.add(new Product(id, categoryId, brandId, name, description, price, discount, quantity));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -58,13 +58,13 @@ public class ProductDAO extends jdbc.DBConnect {
             while (rs.next()) {
                 int id = rs.getInt(1);
                 int categoryId = rs.getInt(2);
-                int supplierId = rs.getInt(3);
+                int brandId = rs.getInt(3);
                 String productName = rs.getString(4);
                 String description = rs.getString(5);
                 double price = rs.getDouble(6);
                 double discount = rs.getDouble(7);
                 int quantity = rs.getInt(8);
-                products.add(new Product(id, categoryId, supplierId, productName, description, price, discount, quantity));
+                products.add(new Product(id, categoryId, brandId, productName, description, price, discount, quantity));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
