@@ -1,19 +1,19 @@
 package conntroller;
 
 import dao.CategoryDAO;
+import dao.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.Collections;
-import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Vector;
 import model.Category;
+import model.Product;
 import java.util.Comparator;
 
 /**
@@ -35,16 +35,16 @@ public class HomeController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+            //Get categories ans its number of products from database
             CategoryDAO cdao = new CategoryDAO();
             Vector<Category> categoriesVector = cdao.getAll();
-            Map<Category, Integer> categories = new Hashtable<>();
+            Map<Category, Integer> categoriesUnsorted = new Hashtable<>();
             for (Category category : categoriesVector) {
                 int numberOfProducts = cdao.getNumberOfProductsIn(category.getId());
-                categories.put(category, numberOfProducts);
+                categoriesUnsorted.put(category, numberOfProducts);
             }
-            
-            LinkedHashMap<Category, Integer> sortedMapByKey = new LinkedHashMap<>();
+            //Sort categrories (the "Others" category be the last)
+            LinkedHashMap<Category, Integer> categories = new LinkedHashMap<>();
             Comparator<Category> comparator = Comparator.comparing(
                     Category::getName, (String c1, String c2) -> {
                         if (c1.equals("Others")) {
@@ -55,18 +55,16 @@ public class HomeController extends HttpServlet {
                         }
                         return c1.compareTo(c2);
                     });
-            categories.entrySet().stream()
+            categoriesUnsorted.entrySet().stream()
                     .sorted(Map.Entry.<Category, Integer>comparingByKey(comparator))
-                    .forEachOrdered(e -> sortedMapByKey.put(e.getKey(), e.getValue()));
-//            System.out.println("Sorted map by key: " + sortedMapByKey);
+                    .forEachOrdered(e -> categories.put(e.getKey(), e.getValue()));
             
-//            Enumeration<Category> enu = Collections.enumeration(sortedMapByKey.keySet());
-//            while (enu.hasMoreElements()) {
-//                Category category = enu.nextElement();
-//                System.out.println(category.getName() + " " + categories.get(category));
-//            }
+            //Get products from database
+            ProductDAO pdao = new ProductDAO();
+            Vector<Product> products = pdao.getAll();
             
-            request.setAttribute("categories", sortedMapByKey);
+            request.setAttribute("products", products);
+            request.setAttribute("categories", categories);
             request.getRequestDispatcher("/jsp/index.jsp").forward(request, response);
         }
     }

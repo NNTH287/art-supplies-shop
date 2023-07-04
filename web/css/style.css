@@ -9162,6 +9162,8 @@ button.bg-dark:focus {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  display: inline-block;
+  width: calc(90%);
 }
 
 .text-left {
