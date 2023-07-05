@@ -265,7 +265,7 @@
                                 </div>
                                 <div class="flex-fill pl-3">
                                     <h6>${brand.key.name}</h6>
-                                    <small class="text-body">${cate.value} Products</small>
+                                    <small class="text-body">${brand.value} Products</small>
                                 </div>
                             </div>
                         </a>
