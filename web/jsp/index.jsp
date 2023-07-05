@@ -7,19 +7,20 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="model.Category, java.sql.ResultSet, java.util.Enumeration, java.util.LinkedHashMap, java.util.Collections" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
 
     <head>
         <meta charset="utf-8">
-        <title>EljShop - Online Art Supplies Shop</title>
+        <title>Elj Shop - Online Art Supplies Shop</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="Free HTML Templates" name="keywords">
         <meta content="Free HTML Templates" name="description">
 
         <!<!-- Favicon -->
-        <link rel="icon" href="${pageContext.request.contextPath}/img/logo.jpg" type="image/icon type">
+        <link rel="icon" href="${pageContext.request.contextPath}/img/logo.ico" type="image/icon type">
         
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -293,7 +294,14 @@
                             <div class="text-center py-4">
                                 <a title="${pro.name}" class="h6 text-decoration-none text-truncate" href="">${pro.name}</a>
                                 <div class="d-flex align-items-center justify-content-center mt-2">
-                                    <h5>${pro.price * (1-pro.discount)}</h5><h6 class="text-muted ml-2"><del>${pro.price}</del></h6>
+                                    <c:set var="currentPrice" value="${pro.price * (1-pro.discount)}"/>
+                                    <fmt:setLocale value="vi_VN"/>
+                                    <h5 class="text-primary"><fmt:formatNumber type="currency" pattern="###,###¤">${currentPrice}</fmt:formatNumber></h5>
+                                    <c:if test="${currentPrice < pro.price}">
+                                        <h6 class="text-muted ml-2">
+                                            <del><fmt:formatNumber type="currency" pattern="###,###¤">${pro.price}</fmt:formatNumber></del>
+                                        </h6>
+                                    </c:if>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center mb-1">
                                     <small class="fa fa-star text-primary mr-1"></small>
