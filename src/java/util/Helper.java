@@ -19,8 +19,14 @@ public class Helper {
     private Helper() {
     }
 
+    /**
+     * Get all categories and its number of products from the database, sort
+     * alphabetically the result (the "Others" category be the last) then set it
+     * to request attribute.
+     *
+     * @param request servlet request
+     */
     public static void getCategory(HttpServletRequest request) {
-        //Get categories ans its number of products from database
         CategoryDAO cdao = new CategoryDAO();
         Vector<Category> categoriesVector = cdao.getAll();
         Map<Category, Integer> categoriesUnsorted = new Hashtable<>();
@@ -28,7 +34,7 @@ public class Helper {
             int numberOfProducts = cdao.getNumberOfProductsIn(category.getId());
             categoriesUnsorted.put(category, numberOfProducts);
         }
-        //Sort categrories (the "Others" category be the last)
+        
         LinkedHashMap<Category, Integer> categories = new LinkedHashMap<>();
         Comparator<Category> categoryComparator = Comparator.comparing(
                 Category::getName, (String c1, String c2) -> {
@@ -47,8 +53,14 @@ public class Helper {
         request.setAttribute("categories", categories);
     }
 
+    /**
+     * Get all brands and its number of products from the database, sort
+     * alphabetically the result (the "Nobrand" brand be the last) then set it
+     * to request attribute.
+     *
+     * @param request servlet request
+     */
     public static void getBrand(HttpServletRequest request) {
-        //Get brands ans its number of products from database
         BrandDAO bdao = new BrandDAO();
         Vector<Brand> brandsVector = bdao.getAll();
         Map<Brand, Integer> brandsUnsorted = new Hashtable<>();
@@ -56,7 +68,7 @@ public class Helper {
             int numberOfProducts = bdao.getNumberOfProductsIn(brand.getId());
             brandsUnsorted.put(brand, numberOfProducts);
         }
-        //Sort brands (the "Nobrand" category be the last)
+        
         LinkedHashMap<Brand, Integer> brands = new LinkedHashMap<>();
         Comparator<Brand> brandComparator = Comparator.comparing(
                 Brand::getName, (String c1, String c2) -> {
@@ -71,6 +83,7 @@ public class Helper {
         brandsUnsorted.entrySet().stream()
                 .sorted(Map.Entry.<Brand, Integer>comparingByKey(brandComparator))
                 .forEachOrdered(e -> brands.put(e.getKey(), e.getValue()));
+        
         request.setAttribute("brands", brands);
     }
 }
