@@ -70,7 +70,6 @@
         </div>
         <!-- Topbar End -->
 
-
         <!-- Navbar Start -->
         <div class="container-fluid bg-dark mb-30">
             <div class="row px-xl-5">
@@ -127,7 +126,6 @@
             </div>
         </div>
         <!-- Navbar End -->
-
 
         <!-- Carousel Start -->
         <div class="container-fluid mb-3">
@@ -194,7 +192,6 @@
             </div>
         </div>
         <!-- Carousel End -->
-
 
         <!-- Featured Start -->
         <div class="container-fluid pt-5">
@@ -286,7 +283,6 @@
                                 <div class="product-action">
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
                                 </div>
                             </div>
@@ -372,7 +368,6 @@
         </div>
         <!-- Vendor End -->
 
-
         <!-- Footer Start -->
         <div class="container-fluid bg-dark text-secondary mt-5 pt-5">
             <div class="row px-xl-5 pt-5">
@@ -444,10 +439,8 @@
         </div>
         <!-- Footer End -->
 
-
         <!-- Back to Top -->
         <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
-
 
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
