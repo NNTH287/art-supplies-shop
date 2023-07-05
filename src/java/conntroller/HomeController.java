@@ -1,7 +1,5 @@
 package conntroller;
 
-import dao.BrandDAO;
-import dao.CategoryDAO;
 import dao.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,21 +7,16 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.Hashtable;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Vector;
-import model.Category;
-import model.Brand;
 import model.Product;
-import java.util.Comparator;
+import util.Helper;
 
 /**
  *
  * @author Huy Nguyen
  */
 public class HomeController extends HttpServlet {
-
+       
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,62 +30,12 @@ public class HomeController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-            //Get categories ans its number of products from database
-            CategoryDAO cdao = new CategoryDAO();
-            Vector<Category> categoriesVector = cdao.getAll();
-            Map<Category, Integer> categoriesUnsorted = new Hashtable<>();
-            for (Category category : categoriesVector) {
-                int numberOfProducts = cdao.getNumberOfProductsIn(category.getId());
-                categoriesUnsorted.put(category, numberOfProducts);
-            }
-            //Sort categrories (the "Others" category be the last)
-            LinkedHashMap<Category, Integer> categories = new LinkedHashMap<>();
-            Comparator<Category> categoryComparator = Comparator.comparing(
-                    Category::getName, (String c1, String c2) -> {
-                        if (c1.equals("Others")) {
-                            return 1;
-                        }
-                        if (c2.equals("Others")) {
-                            return -1;
-                        }
-                        return c1.compareTo(c2);
-                    });
-            categoriesUnsorted.entrySet().stream()
-                    .sorted(Map.Entry.<Category, Integer>comparingByKey(categoryComparator))
-                    .forEachOrdered(e -> categories.put(e.getKey(), e.getValue()));
+            Helper.getCategory(request);
+            Helper.getBrand(request);
+            Vector<Product> products = new ProductDAO().getAll();
             
-            //Get brands ans its number of products from database
-            BrandDAO bdao = new BrandDAO();
-            Vector<Brand> brandsVector = bdao.getAll();
-            Map<Brand, Integer> brandsUnsorted = new Hashtable<>();
-            for (Brand brand : brandsVector) {
-                int numberOfProducts = bdao.getNumberOfProductsIn(brand.getId());
-                brandsUnsorted.put(brand, numberOfProducts);
-            }
-            //Sort brands (the "Nobrand" category be the last)
-            LinkedHashMap<Brand, Integer> brands = new LinkedHashMap<>();
-            Comparator<Brand> brandComparator = Comparator.comparing(
-                    Brand::getName, (String c1, String c2) -> {
-                        if (c1.equals("Nobrand")) {
-                            return 1;
-                        }
-                        if (c2.equals("Nobrand")) {
-                            return -1;
-                        }
-                        return c1.compareTo(c2);
-                    });
-            brandsUnsorted.entrySet().stream()
-                    .sorted(Map.Entry.<Brand, Integer>comparingByKey(brandComparator))
-                    .forEachOrdered(e -> brands.put(e.getKey(), e.getValue()));
-            
-            //Get products from database
-            ProductDAO pdao = new ProductDAO();
-            Vector<Product> products = pdao.getAll();
-            
-            request.setAttribute("brands", brands);
-            request.setAttribute("categories", categories);
             request.setAttribute("products", products);
-            request.getRequestDispatcher("/jsp/index.jsp").forward(request, response);
+            request.getRequestDispatcher("/jsp/homePage.jsp").forward(request, response);
         }
     }
 
