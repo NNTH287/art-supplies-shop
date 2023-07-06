@@ -8,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.StringTokenizer;
 import java.util.Vector;
 import model.Product;
 import util.Helper;
@@ -47,11 +48,20 @@ public class ShopController extends HttpServlet {
         int cateId = Integer.parseInt(request.getParameter("cateId") != null ? request.getParameter("cateId") : "-1");
         int brandId = Integer.parseInt(request.getParameter("brandId") != null ? request.getParameter("brandId") : "-1");
         double minPrice = 0.0;
-        double maxprice = IConstant.MAX_PRICE;
+        double maxPrice = IConstant.MAX_PRICE;
         Helper.getCategory(request);
         Helper.getBrand(request);
-        Vector<Product> products = pdao.filterProducts(cateId, brandId, minPrice, maxprice);
         
+       
+        if (request.getParameter("price") != null && !request.getParameter("price").equals("")) {
+            StringTokenizer tokenizer = new StringTokenizer(request.getParameter("price" ), "-");
+            System.out.println("got");
+            minPrice = Double.parseDouble(tokenizer.nextToken());
+            maxPrice = Double.parseDouble(tokenizer.nextToken());
+            System.out.println("min: " + minPrice + ", max: " + maxPrice);
+        }
+        
+        Vector<Product> products = pdao.filterProducts(cateId, brandId, minPrice, maxPrice);
         request.setAttribute("products", products);
         request.getRequestDispatcher("/jsp/shopPage.jsp").forward(request, response);
     } 
