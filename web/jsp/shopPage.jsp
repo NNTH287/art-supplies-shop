@@ -141,11 +141,36 @@
         </div>
         <!-- Breadcrumb End -->
 
+        <c:set var="totalProducts" value="${0}"  scope="session"/>
+        <c:forEach items="${categories}" var="cate">
+            <c:set var="totalProducts" value="${totalProducts + cate.value}" />
+        </c:forEach>
+        
         <!-- Shop Start -->
         <div class="container-fluid">
             <div class="row px-xl-5">
                 <!-- Shop Sidebar Start -->
                 <div class="col-lg-3 col-md-4">
+                    <!-- Categories Start -->
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Categories</span></h5>
+                    <div class="bg-light p-4 mb-30">
+                        <form action="shop" method="GET">
+                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                <input type="radio" class="custom-control-input" id="cate-all" name="cateId" value="-1" onclick="this.form.submit()" <c:if test="${param.cateId == -1}">checked</c:if>>
+                                <label class="custom-control-label" for="cate-all">All</label>
+                                <span class="badge border font-weight-normal">${totalProducts}</span>
+                            </div>
+                            <c:forEach items="${categories}" var="cate">
+                                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="radio" class="custom-control-input" id="cate-${cate.key.id}" name="cateId" value="${cate.key.id}" onclick="this.form.submit()" <c:if test="${param.cateId == cate.key.id}">checked</c:if>>
+                                    <label class="custom-control-label" for="cate-${cate.key.id}">${cate.key.name}</label>
+                                    <span class="badge border font-weight-normal">${cate.value}</span>
+                                </div>
+                            </c:forEach>
+                        </form>
+                    </div>
+                    <!-- Categories End -->
+                    
                     <!-- Price Start -->
                     <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by price</span></h5>
                     <div class="bg-light p-4 mb-30">
@@ -183,44 +208,6 @@
                         </form>
                     </div>
                     <!-- Price End -->
-
-                    <!-- Color Start -->
-                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by color</span></h5>
-                    <div class="bg-light p-4 mb-30">
-                        <form>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" checked id="color-all">
-                                <label class="custom-control-label" for="price-all">All Color</label>
-                                <span class="badge border font-weight-normal">1000</span>
-                            </div>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="color-1">
-                                <label class="custom-control-label" for="color-1">Black</label>
-                                <span class="badge border font-weight-normal">150</span>
-                            </div>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="color-2">
-                                <label class="custom-control-label" for="color-2">White</label>
-                                <span class="badge border font-weight-normal">295</span>
-                            </div>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="color-3">
-                                <label class="custom-control-label" for="color-3">Red</label>
-                                <span class="badge border font-weight-normal">246</span>
-                            </div>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="color-4">
-                                <label class="custom-control-label" for="color-4">Blue</label>
-                                <span class="badge border font-weight-normal">145</span>
-                            </div>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                                <input type="checkbox" class="custom-control-input" id="color-5">
-                                <label class="custom-control-label" for="color-5">Green</label>
-                                <span class="badge border font-weight-normal">168</span>
-                            </div>
-                        </form>
-                    </div>
-                    <!-- Color End -->
 
                     <!-- Size Start -->
                     <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by size</span></h5>
@@ -262,15 +249,14 @@
                 </div>
                 <!-- Shop Sidebar End -->
 
-
                 <!-- Shop Product Start -->
                 <div class="col-lg-9 col-md-8">
                     <div class="row pb-3">
                         <div class="col-12 pb-1">
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <div>
-                                    <button class="btn btn-sm btn-light"><i class="fa fa-th-large"></i></button>
-                                    <button class="btn btn-sm btn-light ml-2"><i class="fa fa-bars"></i></button>
+<!--                                    <button class="btn btn-sm btn-light"><i class="fa fa-th-large"></i></button>
+                                    <button class="btn btn-sm btn-light ml-2"><i class="fa fa-bars"></i></button>-->
                                 </div>
                                 <div class="ml-2">
                                     <div class="btn-group">

@@ -53,7 +53,7 @@ VALUES ('Nabii'),
 
 INSERT INTO [Product]
 VALUES (2, 1, 'Sketchbook Nabii Ima 160gsm', 'Paper weight: 160gsm. Quantity: 32 sheets/book. Size: A5, A4 size. Color: Cream. Paper grain: Light grain', 75000, 0.05, 5),
-	(1, 2, 'Van Gogh (tin box) Watercolor', 'Specification: Color in half pan. Empty tin box in the middle can hold a brush', 1160000, 0.1, 3),
+	(1, 2, 'Van Gogh (tin box) Watercolor', 'Specification: Color in half pan. Empty tin box in the middle can hold a brush', 1160000, 0.2, 3),
 	(1, 3, 'Gansai Japanese Holbein Watercolor', 'Gansai Japanese Holbein watercolor belongs to the segment of high-class students from Japan. The color is produced based on the traditional Japanese color formula (semi-transparent color). Some hot tones are quite clear and fresh, the rest of the color palette is semi-transparent, some colors have pretty good coverage. Luxurious design color is very suitable for gifts or collectibles. The color is also suitable for those of you who want to try a new material. Color suitable for many types of paintings such as landscape, illustration, anime, still life, ...', 496000, 0, 10),
 	(2, 3, 'Maxon drawing paper', 'Maxon comic paper is a specialized line of paper for drawing manga. Smooth paper, pre-lined with a picture frame at the edge to draw stories. Paper suitable for drawing iron pens, needle pens. The surface of the paper makes the drawing process smoother, and the nib lasts longer. Paper tough, anti-fraying', 68000, 0, 5),
 	(4, 3, 'Maxon drawing brushes set', 'Holbein Maxon comic pen and brush set includes a full set of pens and brushes that Japanese artists specialize in drawing comics, bringing', 340000, 0, 20),
