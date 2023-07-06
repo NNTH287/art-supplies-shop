@@ -67,6 +67,13 @@ CREATE TABLE [ProductReview] (
 )
 GO
 
+CREATE TABLE [Favorite] (
+  [userId] int NOT NULL,
+  [productId] int NOT NULL,
+  PRIMARY KEY ([userId], [productId])
+)
+GO
+
 CREATE TABLE [Order] (
   [id] int PRIMARY KEY NOT NULL IDENTITY(1, 1),
   [userId] int NOT NULL,
@@ -114,6 +121,12 @@ ALTER TABLE [ProductReview] ADD FOREIGN KEY ([userId]) REFERENCES [User] ([id])
 GO
 
 ALTER TABLE [ProductReview] ADD FOREIGN KEY ([productId]) REFERENCES [Product] ([id])
+GO
+
+ALTER TABLE [Favorite] ADD FOREIGN KEY ([userId]) REFERENCES [User] ([id])
+GO
+
+ALTER TABLE [Favorite] ADD FOREIGN KEY ([productId]) REFERENCES [Product] ([id])
 GO
 
 ALTER TABLE [Order] ADD FOREIGN KEY ([userId]) REFERENCES [User] ([id])
