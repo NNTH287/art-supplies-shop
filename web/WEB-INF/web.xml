@@ -12,6 +12,14 @@
         <servlet-name>SearchController</servlet-name>
         <servlet-class>controller.SearchController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProductDetailsController</servlet-name>
+        <servlet-class>controller.ProductDetailsController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PageNotFoundController</servlet-name>
+        <servlet-class>controller.PageNotFoundController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -23,6 +31,14 @@
     <servlet-mapping>
         <servlet-name>SearchController</servlet-name>
         <url-pattern>/search</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductDetailsController</servlet-name>
+        <url-pattern>/details</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PageNotFoundController</servlet-name>
+        <url-pattern>/404</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
