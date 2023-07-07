@@ -9,6 +9,26 @@ import java.util.logging.Logger;
 import model.Brand;
 
 public class BrandDAO extends jdbc.DBConnect{
+    public Brand getById(int brandId) {
+        Brand brand = null;
+        String sql = "SELECT [id]\n"
+                + "      ,[name]\n"
+                + "  FROM [dbo].[Brand]"
+                + "  where id = ?";
+        try {
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, brandId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString(2);
+                brand = new Brand(brandId, name);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return brand;
+    }
+    
     public Vector<Brand> getAll() {
         Vector<Brand> brands = new Vector<>();
         String sql = "SELECT [id]\n"

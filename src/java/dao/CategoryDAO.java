@@ -9,6 +9,26 @@ import java.util.logging.Logger;
 import model.Category;
 
 public class CategoryDAO extends jdbc.DBConnect {
+    public Category getById(int cateId) {
+        Category category = null;
+        String sql = "SELECT [id]\n"
+                + "      ,[name]\n"
+                + "  FROM [dbo].[Category]"
+                + "  where id = ?";
+        try {
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, cateId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString(2);
+                category = new Category(cateId, name);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return category;
+    }
+    
     public Vector<Category> getAll() {
         Vector<Category> categories = new Vector<>();
         String sql = "SELECT [id]\n"
@@ -42,5 +62,10 @@ public class CategoryDAO extends jdbc.DBConnect {
             Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return cnt;
+    }
+    
+    public static void main(String[] args) {
+        CategoryDAO cdao = new CategoryDAO();
+        System.out.println(cdao.getById(1));
     }
 }

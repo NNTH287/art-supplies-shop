@@ -170,13 +170,13 @@
                                     <div class="product-img position-relative overflow-hidden">
                                         <img class="img-fluid w-100" src="${pageContext.request.contextPath}/img/product-${pro.id}.jpg" alt="">
                                         <div class="product-action">
-                                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                                            <a title="Add to cart" class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                                            <a title="Add to favorite" class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                                            <a title="See details" class="btn btn-outline-dark btn-square" href="details?proId=${pro.id}"><i class="fa fa-search"></i></a>
                                         </div>
                                     </div>
                                     <div class="text-center py-4">
-                                        <a title="${pro.name}" class="h6 text-decoration-none text-truncate" href="">${pro.name}</a>
+                                        <a title="${pro.name}" class="h6 text-decoration-none text-truncate" href="details?proId=${pro.id}">${pro.name}</a>
                                         <div class="d-flex align-items-center justify-content-center mt-2">
                                             <c:set var="currentPrice" value="${pro.price * (1-pro.discount)}"/>
                                             <fmt:setLocale value="vi_VN"/>

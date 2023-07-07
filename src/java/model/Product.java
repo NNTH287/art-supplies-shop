@@ -40,11 +40,11 @@ public class Product {
         this.categoryId = categoryId;
     }
 
-    public int getSupplierId() {
+    public int getBrandId() {
         return brandId;
     }
 
-    public void setSupplierId(int brandId) {
+    public void setBrandId(int brandId) {
         this.brandId = brandId;
     }
 

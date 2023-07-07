@@ -9,6 +9,38 @@ import java.util.logging.Logger;
 import model.Product;
 
 public class ProductDAO extends jdbc.DBConnect {
+    public Product getById(int proId) {
+        Product product = null;
+        String sql = "SELECT [id]\n"
+                + "      ,[categoryId]\n"
+                + "      ,[brandId]\n"
+                + "      ,[name]\n"
+                + "      ,[description]\n"
+                + "      ,[price]\n"
+                + "      ,[discount]\n"
+                + "      ,[quantity]\n"
+                + "  FROM [dbo].[Product]"
+                + " where id = ?";
+        try {
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, proId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                int categoryId = rs.getInt(2);
+                int brandId = rs.getInt(3);
+                String productName = rs.getString(4);
+                String description = rs.getString(5);
+                double price = rs.getDouble(6);
+                double discount = rs.getDouble(7);
+                int quantity = rs.getInt(8);
+                product = new Product(proId, categoryId, brandId, productName, description, price, discount, quantity);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return product;
+    }
+    
     public Vector<Product> getAll() {
         Vector<Product> products = new Vector<>();
         String sql = "SELECT [id]\n"
@@ -124,10 +156,47 @@ public class ProductDAO extends jdbc.DBConnect {
         return products;
     }
 
+    public Vector<Product> getRelatedProducts(Product product) {
+        Vector<Product> relatedProducts = new Vector<>();
+        int cateId = product.getCategoryId();
+        int braId = product.getBrandId();
+        String sql = "SELECT [id]\n"
+                + "      ,[categoryId]\n"
+                + "      ,[brandId]\n"
+                + "      ,[name]\n"
+                + "      ,[description]\n"
+                + "      ,[price]\n"
+                + "      ,[discount]\n"
+                + "      ,[quantity]\n"
+                + "  FROM [dbo].[Product]"
+                + " where (categoryId = ? or brandId = ?) and id != ?";
+        try {
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, cateId);
+            statement.setInt(2, braId);
+            statement.setInt(3, product.getId());
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                int categoryId = rs.getInt(2);
+                int brandId = rs.getInt(3);
+                String productName = rs.getString(4);
+                String description = rs.getString(5);
+                double price = rs.getDouble(6);
+                double discount = rs.getDouble(7);
+                int quantity = rs.getInt(8);
+                relatedProducts.add(new Product(id, categoryId, brandId, productName, description, price, discount, quantity));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return relatedProducts;
+    } 
+    
     public static void main(String[] args) {
         ProductDAO dao = new ProductDAO();
 
-        Vector<Product> products = dao.filterProducts(-1, -1, 1, 11600000, "ON_SALE");
+        Vector<Product> products = dao.getRelatedProducts(new Product(7, 2, 4, "t", "t", 0, 0, 1));
         for (Product product : products) {
             System.out.println(product);
         }
