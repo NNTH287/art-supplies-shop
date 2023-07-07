@@ -72,7 +72,7 @@ public class ProductDAO extends jdbc.DBConnect {
         return products;
     }
 
-    public Vector<Product> filterProducts(int cateId, int braId, double minPrice, double maxPrice) {
+    public Vector<Product> filterProducts(int cateId, int braId, double minPrice, double maxPrice, String sale) {
         Vector<Product> products = new Vector<>();
         String sql = "SELECT [id]\n"
                 + "      ,[categoryId]\n"
@@ -85,7 +85,8 @@ public class ProductDAO extends jdbc.DBConnect {
                 + "  FROM [dbo].[Product]\n"
                 + "  where categoryId in (" + (cateId == -1 ? "select id from Category" : "?") + ")\n"
                 + "	and brandId in ("  + (braId == -1 ? "select id from Brand" : "?") + ")\n"
-                + "	and price between ? and ?";
+                + "	and price between ? and ?"
+                + (sale.endsWith("ON_SALE") ? "     and discount > 0" : "");
         try {
             PreparedStatement statement = conn.prepareStatement(sql);
             if (cateId == -1 && braId == -1) { //No filter by both category and brand
@@ -126,7 +127,7 @@ public class ProductDAO extends jdbc.DBConnect {
     public static void main(String[] args) {
         ProductDAO dao = new ProductDAO();
 
-        Vector<Product> products = dao.filterProducts(-1, 3, 1, 11600000);
+        Vector<Product> products = dao.filterProducts(-1, -1, 1, 11600000, "ON_SALE");
         for (Product product : products) {
             System.out.println(product);
         }

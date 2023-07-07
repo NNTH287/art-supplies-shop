@@ -44,24 +44,22 @@ public class ShopController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        Helper.getCategory(request);
+        Helper.getBrand(request);
         ProductDAO pdao = new ProductDAO();
         int cateId = Integer.parseInt(request.getParameter("cateId") != null ? request.getParameter("cateId") : "-1");
         int brandId = Integer.parseInt(request.getParameter("brandId") != null ? request.getParameter("brandId") : "-1");
         double minPrice = 0.0;
         double maxPrice = IConstant.MAX_PRICE;
-        Helper.getCategory(request);
-        Helper.getBrand(request);
-        
+        String sale = request.getParameter("sale") != null ? "ON_SALE" : "NOT_SALE";
        
         if (request.getParameter("price") != null && !request.getParameter("price").equals("")) {
             StringTokenizer tokenizer = new StringTokenizer(request.getParameter("price" ), "-");
-            System.out.println("got");
             minPrice = Double.parseDouble(tokenizer.nextToken());
             maxPrice = Double.parseDouble(tokenizer.nextToken());
-            System.out.println("min: " + minPrice + ", max: " + maxPrice);
         }
         
-        Vector<Product> products = pdao.filterProducts(cateId, brandId, minPrice, maxPrice);
+        Vector<Product> products = pdao.filterProducts(cateId, brandId, minPrice, maxPrice, sale);
         request.setAttribute("products", products);
         request.getRequestDispatcher("/jsp/shopPage.jsp").forward(request, response);
     } 
