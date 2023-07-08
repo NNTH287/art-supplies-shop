@@ -41,7 +41,7 @@ CREATE TABLE [Product] (
   [brandId] int NOT NULL,
   [name] nvarchar(200),
   [description] nvarchar(4000),
-  [price] float NOT NULL DEFAULT (0),
+  [price] float NOT NULL,
   [discount] float DEFAULT (0),
   [quantity] int NOT NULL DEFAULT (0)
 )
@@ -86,22 +86,27 @@ CREATE TABLE [OrderDetail] (
   [id] int PRIMARY KEY NOT NULL IDENTITY(1, 1),
   [orderId] int NOT NULL,
   [productId] int NOT NULL,
+  [productName] nvarchar(200) NOT NULL,
+  [price] float NOT NULL,
   [quantity] int NOT NULL DEFAULT (1)
 )
 GO
 
 CREATE TABLE [Cart] (
   [id] int PRIMARY KEY NOT NULL,
-  [sessionId] varchar(32) NOT NULL,
-  [userId] int NOT NULL
+  [sessionId] varchar(32),
+  [userId] int
 )
 GO
 
 CREATE TABLE [CartItem] (
-  [id] int PRIMARY KEY NOT NULL,
+  [id] int NOT NULL,
   [cartId] int NOT NULL,
   [productId] int NOT NULL,
-  [quantity] int NOT NULL DEFAULT (1)
+  [productName] nvarchar(200) NOT NULL,
+  [price] float NOT NULL,
+  [quantity] int NOT NULL DEFAULT (1),
+  PRIMARY KEY ([id], [cartId])
 )
 GO
 
@@ -138,6 +143,9 @@ GO
 ALTER TABLE [OrderDetail] ADD FOREIGN KEY ([productId]) REFERENCES [Product] ([id])
 GO
 
+ALTER TABLE [OrderDetail] ADD FOREIGN KEY ([productName]) REFERENCES [Product] ([name])
+GO
+
 ALTER TABLE [Cart] ADD FOREIGN KEY ([userId]) REFERENCES [User] ([id])
 GO
 
@@ -145,4 +153,7 @@ ALTER TABLE [CartItem] ADD FOREIGN KEY ([cartId]) REFERENCES [Cart] ([id])
 GO
 
 ALTER TABLE [CartItem] ADD FOREIGN KEY ([productId]) REFERENCES [Product] ([id])
+GO
+
+ALTER TABLE [CartItem] ADD FOREIGN KEY ([productName]) REFERENCES [Product] ([name])
 GO
