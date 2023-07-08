@@ -20,6 +20,10 @@
         <servlet-name>PageNotFoundController</servlet-name>
         <servlet-class>controller.PageNotFoundController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddToCartController</servlet-name>
+        <servlet-class>controller.AddToCartController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>PageNotFoundController</servlet-name>
         <url-pattern>/404</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddToCartController</servlet-name>
+        <url-pattern>/add-to-cart</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

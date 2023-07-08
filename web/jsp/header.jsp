@@ -4,6 +4,7 @@
     Author     : Huy Nguyen
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -88,11 +89,21 @@
                             <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                                 <a href="" class="btn px-0">
                                     <i class="fas fa-heart text-primary"></i>
-                                    <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
+                                    <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">
+                                        <c:choose>
+                                            <c:when test="${numberOfItemsFav == null || numberOfItemsFav == 0}">0</c:when>
+                                            <c:otherwise>${numberOfItemsFav}</c:otherwise>
+                                        </c:choose>
+                                    </span>
                                 </a>
-                                <a href="" class="btn px-0 ml-3">
+                                <a href="cart" class="btn px-0 ml-3">
                                     <i class="fas fa-shopping-cart text-primary"></i>
-                                    <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
+                                    <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">
+                                        <c:choose>
+                                            <c:when test="${numberOfItemsInCart == null || numberOfItemsInCart == 0}">0</c:when>
+                                            <c:otherwise>${numberOfItemsInCart}</c:otherwise>
+                                        </c:choose>
+                                    </span>
                                 </a>
                             </div>
                         </div>
@@ -101,5 +112,22 @@
             </div>
         </div>
         <!-- Navbar End -->
+
+        <!-- Notification Start -->
+        <% if(session.getAttribute("notification") != null) { %>
+        <div class="container-fluid mb-3">
+            <div class="row px-xl-5">
+                <div class="col-lg-8">
+                    <div class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <strong><%= session.getAttribute("notification") != null ? "Message: " + session.getAttribute("notification") : ""%></strong>
+                        <%session.removeAttribute("notification");%>
+                    </div>
+                </div>
+                <div class="col-lg-4"></div>
+            </div>
+        </div>
+        <%}%>
+        <!-- Notification End -->
     </body>
 </html>

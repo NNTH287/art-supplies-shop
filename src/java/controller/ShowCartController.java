@@ -1,22 +1,23 @@
 package controller;
 
-import dao.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.Vector;
-import model.Product;
+import model.Cart;
 import util.Helper;
 
 /**
  *
  * @author Huy Nguyen
  */
-public class HomeController extends HttpServlet {
+@WebServlet(name = "ShowCartController", urlPatterns = {"/cart"})
+public class ShowCartController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,7 +32,16 @@ public class HomeController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ShowCartController</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ShowCartController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -48,10 +58,14 @@ public class HomeController extends HttpServlet {
             throws ServletException, IOException {
         Helper.getCategory(request);
         Helper.getBrand(request);
-        Vector<Product> products = new ProductDAO().getAll();
-
-        request.setAttribute("products", products);
-        request.getRequestDispatcher("/jsp/homePage.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        Cart cart = (Cart) session.getAttribute("cart");
+        if (cart == null) {
+            cart = new Cart(1, -1, session.getId(), new Vector());
+        }
+        
+        session.setAttribute("cart", cart);
+        request.getRequestDispatcher("/jsp/cartPage.jsp").forward(request, response);
     }
 
     /**
@@ -76,6 +90,6 @@ public class HomeController extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

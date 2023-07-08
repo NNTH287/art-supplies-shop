@@ -194,11 +194,11 @@ public class ProductDAO extends jdbc.DBConnect {
     } 
     
     public static void main(String[] args) {
-        ProductDAO dao = new ProductDAO();
-
-        Vector<Product> products = dao.getRelatedProducts(new Product(7, 2, 4, "t", "t", 0, 0, 1));
-        for (Product product : products) {
-            System.out.println(product);
-        }
+//        ProductDAO dao = new ProductDAO();
+//
+//        Vector<Product> products = dao.getRelatedProducts(new Product(7, 2, 4, "t", "t", 0, 0, 1));
+//        for (Product product : products) {
+//            System.out.println(product);
+//        }
     }
 }

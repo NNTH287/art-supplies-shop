@@ -9705,6 +9705,15 @@ a.text-dark:hover, a.text-dark:focus {
   animation: action 1s infinite alternate;
 }
 
+.product-name-in-cart {
+  color: #3D464D;
+  text-align: left;
+  text-decoration: none;
+}
+
+.product-name-in-cart:hover{
+  text-decoration: none;
+}
 @keyframes action {
   0% {
     transform: translateY(0);

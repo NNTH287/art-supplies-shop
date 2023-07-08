@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.Vector;
+import util.Helper;
 
 /**
  *
@@ -64,12 +65,15 @@ public class ProductDetailsController extends HttpServlet {
             if (product == null) {
                 response.sendRedirect("404");
             } else {
+                Helper.getCategory(request);
+                Helper.getBrand(request);
+                
                 CategoryDAO cdao = new CategoryDAO();
                 BrandDAO bdao = new BrandDAO();
                 String categoryName = cdao.getById(product.getCategoryId()).getName();
                 String brandName = bdao.getById(product.getBrandId()).getName();
                 Vector<Product> relatedProducts = pdao.getRelatedProducts(product);
-                
+
                 request.setAttribute("categoryName", categoryName);
                 request.setAttribute("brandName", brandName);
                 request.setAttribute("product", product);

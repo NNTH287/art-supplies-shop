@@ -191,8 +191,8 @@
                             <div class="product-img position-relative overflow-hidden">
                                 <img class="img-fluid w-100" src="${pageContext.request.contextPath}/img/product-${pro.id}.jpg" alt="">
                                 <div class="product-action">
-                                    <a title="Add to cart" class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                                    <a title="Add to favorite" class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                                    <a title="Add to cart" class="btn btn-outline-dark btn-square" href="add-to-cart?proId=${pro.id}"><i class="fa fa-shopping-cart"></i></a>
+                                    <a title="Add to favorite" class="btn btn-outline-dark btn-square" href="add-to-favorite?proId=${pro.id}"><i class="far fa-heart"></i></a>
                                     <a title="See details" class="btn btn-outline-dark btn-square" href="details?proId=${pro.id}"><i class="fa fa-search"></i></a>
                                 </div>
                             </div>

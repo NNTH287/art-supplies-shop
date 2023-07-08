@@ -109,8 +109,9 @@
                                     </button>
                                 </div>
                             </div>
-                            <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
-                                Cart</button>
+                            <a href="add-to-cart?proId=${product.id}">
+                            <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i>Add To Cart</button>
+                            </a>
                         </div>
                     </div>
                 </div>

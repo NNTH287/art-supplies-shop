@@ -1,17 +1,21 @@
 package model;
 
+import java.util.Vector;
+
 public class Cart {
     private int id;
     private int userId;
-    private int sessionId;
+    private String sessionId;
+    private Vector<CartItem> items;
 
     public Cart() {
     }
 
-    public Cart(int id, int userId, int sessionId) {
+    public Cart(int id, int userId, String sessionId, Vector<CartItem> items) {
         this.id = id;
         this.userId = userId;
         this.sessionId = sessionId;
+        this.items = items;
     }
 
     public int getId() {
@@ -30,16 +34,26 @@ public class Cart {
         this.userId = userId;
     }
 
-    public int getSessionId() {
+    public String getSessionId() {
         return sessionId;
     }
 
-    public void setSessionId(int sessionId) {
+    public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
+    }
+
+    public Vector<CartItem> getItems() {
+        return items;
+    }
+
+    public void setItems(Vector<CartItem> items) {
+        this.items = items;
     }
 
     @Override
     public String toString() {
-        return super.toString();
+        return "Cart{id=" + id
+                + ", userId=" + userId
+                + ", sessionId=" + sessionId + "}";
     }
 }
