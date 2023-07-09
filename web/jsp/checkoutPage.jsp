@@ -120,8 +120,8 @@
                                 <h6>
                                     <fmt:formatNumber type="currency" pattern="###,###¤">
                                         <c:choose>
-                                            <c:when test="${subTotal == null || subTotal == 0}">0</c:when>
-                                            <c:otherwise>${subTotal}</c:otherwise>
+                                            <c:when test="${subtotal == null || subtotal == 0}">0</c:when>
+                                            <c:otherwise>${subtotal}</c:otherwise>
                                         </c:choose>
                                     </fmt:formatNumber>
                                 </h6>
@@ -143,7 +143,7 @@
                                 <h5>Total</h5>
                                 <h5>
                                     <fmt:formatNumber type="currency" pattern="###,###¤">
-                                        ${shippingFee + subTotal}
+                                        ${shippingFee + subtotal}
                                     </fmt:formatNumber>
                                 </h5>
                             </div>

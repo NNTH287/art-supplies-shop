@@ -97,7 +97,27 @@
                 newVal = 0;
             }
         }
-        button.parent().parent().find('input').val(newVal);
+        button.parent().parent().parent().find('input').val(newVal);
+
+        var currentCol = button.parent().parent().parent();
+        var price = currentCol.prev().text().slice(0,-1).replace(/\./g, '');
+        var oldTotal = currentCol.next().text().slice(0,-1).replace(/\./g, '');
+        if (button.hasClass('btn-plus')) {
+            if(currentCol.hasClass('align-middle')) {
+                var newTotal = (parseInt(oldTotal) + parseInt(price));
+                var subtotal = parseInt($("#subtotalText").text().slice(0,-1).replace(/\./g, '')) - oldTotal + newTotal;
+                var shipping = parseInt($("#shippingText").text().slice(0,-1).replace(/\./g, '')) + 5000;
+            }
+        } else {
+            var newTotal = (parseInt(oldTotal) - parseInt(price));
+            var subtotal = parseInt($("#subtotalText").text().slice(0,-1).replace(/\./g, '')) - oldTotal + newTotal;
+            var shipping = parseInt($("#shippingText").text().slice(0,-1).replace(/\./g, '')) - 5000;
+        }
+        var total = subtotal + shipping;
+        currentCol.next().text(newTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + 'đ');
+        $("#subtotalText").text(subtotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + 'đ');
+        $("#shippingText").text(shipping.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + 'đ');
+        $("#totalText").text(total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + 'đ');
     });
     
 })(jQuery);

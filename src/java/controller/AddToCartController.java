@@ -103,15 +103,15 @@ public class AddToCartController extends HttpServlet {
                     cart.getItems().add(cartItem);
                 }
                 int numberOfItemsInCart = 0;
-                double subTotal = 0;
+                double subtotal = 0;
                 for (CartItem item : cart.getItems()) {
                     numberOfItemsInCart += item.getQuantity();
-                    subTotal += item.getPrice() * item.getQuantity();
+                    subtotal += item.getPrice() * item.getQuantity();
                 }
                 
                 session.setAttribute("notification", quantityToBuy + " of " + product.getName() + " was added to the Shopping Cart.");
                 session.setAttribute("cart", cart);
-                session.setAttribute("subTotal", subTotal);
+                session.setAttribute("subtotal", subtotal);
                 session.setAttribute("numberOfItemsInCart", numberOfItemsInCart);
                 session.setAttribute("shippingFee", numberOfItemsInCart * 5000);
                 response.sendRedirect("home");
