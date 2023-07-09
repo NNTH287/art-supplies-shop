@@ -62,20 +62,22 @@
                                         <td class="align-middle">
                                             <div class="input-group quantity mx-auto" style="width: 100px;">
                                                 <div class="input-group-btn">
-                                                    <button class="btn btn-sm btn-primary btn-minus" >
+                                                    <button type="button" class="btn btn-sm btn-primary btn-minus" >
                                                         <i class="fa fa-minus"></i>
                                                     </button>
                                                 </div>
                                                 <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="${cartItem.quantity}">
                                                 <div class="input-group-btn">
-                                                    <button class="btn btn-sm btn-primary btn-plus">
+                                                    <button type="button" class="btn btn-sm btn-primary btn-plus">
                                                         <i class="fa fa-plus"></i>
                                                     </button>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="align-middle"><fmt:formatNumber type="currency" pattern="###,###¤">${cartItem.price * cartItem.quantity}</fmt:formatNumber></td>
-                                        <td class="align-middle"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
+                                        <td class="align-middle">
+                                            <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-times"></i>
+                                        </button></td>
                                     </tr>
                             </c:forEach>
                         </tbody>

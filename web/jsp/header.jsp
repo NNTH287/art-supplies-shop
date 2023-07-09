@@ -137,14 +137,13 @@
         <% if(session.getAttribute("notification") != null) { %>
         <div class="container-fluid mb-3">
             <div class="row px-xl-5">
-                <div class="col-lg-8">
+                <div class="col-lg-12">
                     <div class="alert alert-success">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <strong><%= session.getAttribute("notification") != null ? "Message: " + session.getAttribute("notification") : ""%></strong>
+                        <strong><%= session.getAttribute("notification")%></strong>
                         <%session.removeAttribute("notification");%>
                     </div>
                 </div>
-                <div class="col-lg-4"></div>
             </div>
         </div>
         <%}%>

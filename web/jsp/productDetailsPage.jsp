@@ -18,6 +18,7 @@
 
     <body>
         <%@include file="header.jsp" %>
+        
         <!-- Breadcrumb Start -->
         <div class="container-fluid">
             <div class="row px-xl-5">
@@ -76,24 +77,25 @@
                         <div class="d-flex mb-4">
                             <strong class="text-dark mr-1">Brand: </strong>${brandName}
                         </div>
-                        <div class="d-flex align-items-center mb-4 pt-2">
+                        <form action="add-to-cart" class="d-flex align-items-center mb-4 pt-2">
+                            <input type="hidden" name="proId" value="${product.id}">
                             <div class="input-group quantity mr-3" style="width: 130px;">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-primary btn-minus">
+                                    <button type="button" class="btn btn-primary btn-minus">
                                         <i class="fa fa-minus"></i>
                                     </button>
                                 </div>
                                 <input name="quantityToBuy" id="quantityToBuy" type="text" class="form-control bg-secondary border-0 text-center" value="1">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-primary btn-plus">
+                                    <button type="button" class="btn btn-primary btn-plus">
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
                             </div>
-                            <a href="add-to-cart?proId=${product.id}">
-                            <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i>Add To Cart</button>
-                            </a>
-                        </div>
+                            <!--<a href="add-to-cart?proId=${product.id}">-->
+                            <button type="submit" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i>Add To Cart</button>
+                            <!--</a>-->
+                        </form>
                     </div>
                 </div>
             </div>

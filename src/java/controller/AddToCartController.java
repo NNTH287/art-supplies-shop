@@ -79,8 +79,8 @@ public class AddToCartController extends HttpServlet {
             if (product == null) {
                 response.sendRedirect("404");
             } else {
-                int quantityToBuy = Integer.parseInt(request.getParameter("quantityToBuy") != null ? request.getParameter("quantityToBuy") : "1");
                 HttpSession session = request.getSession();
+                int quantityToBuy = Integer.parseInt(request.getParameter("quantityToBuy") != null ? request.getParameter("quantityToBuy") : "1");
                 Cart cart = (Cart) session.getAttribute("cart");
                 if (cart == null) {
                     cart = new Cart(1, -1, session.getId(), new Vector());
@@ -109,7 +109,7 @@ public class AddToCartController extends HttpServlet {
                     subTotal += item.getPrice() * item.getQuantity();
                 }
                 
-                session.setAttribute("notification", product.getName() + " was added to the Shopping Cart.");
+                session.setAttribute("notification", quantityToBuy + " of " + product.getName() + " was added to the Shopping Cart.");
                 session.setAttribute("cart", cart);
                 session.setAttribute("subTotal", subTotal);
                 session.setAttribute("numberOfItemsInCart", numberOfItemsInCart);
