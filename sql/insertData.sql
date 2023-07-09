@@ -1,6 +1,3 @@
-use ArtSuppliesShop
-go
-
 INSERT INTO [User]
 VALUES ('Admin', 'Huy', 'Nguyen', 'huyhol287@gmail.com', '123456', '0911362307'),
 	('Customer', 'Thu', 'Le', 'lethu@hotmail.com', '123456', '0292827403'),
@@ -24,7 +21,7 @@ VALUES (1, 1, '2237102713301732|12|2025|636'),
 	(5, 1, '4175707766525506|11|2027|886'),
 	(7, 1, '578723287801764|09|2027|264'),
 	(8, 1, '326246871035818|04|2026|374'),
-	(10, 1, '537474607750048|02|2027|326'),
+	(11, 1, '537474607750048|02|2027|326'),
 	(1, 2, 'Street: 37/49B, C1 Street, Ward 13|City: Tan Binh District|State/province/area: Ho Chi Minh City'),
 	(2, 2, 'Street: National Highway 1A|City:   Vinh Tan Ward|State/province/area: Binh Thuan'),
 	(3, 2, 'Street: 10 Quang Trung St.|City: Binh Dinh Townlet|State/province/area: Binh Dinh'),
@@ -34,26 +31,12 @@ VALUES (1, 1, '2237102713301732|12|2025|636'),
 	(7, 2, 'Street: 101 Le Loi Street, Ward 1|City: My Tho City|State/province/area: Tien Giang'),
 	(8, 2, 'Street: 279 Nguyen Van Luong, District 6|City: Ho Chi Minh City|State/province/area: Ho Chi Minh City'),
 	(9, 2, 'Street: 14A Trung Trac Street, Le Hong Phong Ward|City: Le Hong Phong Ward|State/province/area: Thai Binh'),
-	(10, 2, 'Street: 19/9 Tan Ky Tan Quy, Tan Son Nhi Ward|City: Tan Phu Dist.|State/province/area: Ho Chi Minh City')
-
-INSERT INTO [Category]
-VALUES ('Paint'),
-	('Paper'),
-	('Pen'),
-	('Brush'),
-	('Others')
-
-INSERT INTO [Brand]
-VALUES ('Nabii'),
-	('Van Gogh'),
-	('Holbein'),
-	('White Nights'),
-	('Tombow'),
-	('Nobrand')
+	(10, 2, 'Street: 19/9 Tan Ky Tan Quy, Tan Son Nhi Ward|City: Tan Phu Dist.|State/province/area: Ho Chi Minh City'),
+	(11, 2, 'Street: nha B15, Do thi moi Dai Kim, Hoang Mai|City: Ha Noi|State/province/area: Hanoi')
 
 INSERT INTO [Product]
 VALUES (2, 1, 'Sketchbook Nabii Ima 160gsm', 'Paper weight: 160gsm. Quantity: 32 sheets/book. Size: A5, A4 size. Color: Cream. Paper grain: Light grain', 75000, 0.05, 5),
-	(1, 2, 'Van Gogh (tin box) Watercolor', 'Specification: Color in half pan. Empty tin box in the middle can hold a brush', 1160000, 0.2, 3),
+	(1, 2, 'Van Gogh (tin box) Watercolor', 'Specification: Color in half pan. Empty tin box in the middle can hold a brush', 1160000, 0.1, 3),
 	(1, 3, 'Gansai Japanese Holbein Watercolor', 'Gansai Japanese Holbein watercolor belongs to the segment of high-class students from Japan. The color is produced based on the traditional Japanese color formula (semi-transparent color). Some hot tones are quite clear and fresh, the rest of the color palette is semi-transparent, some colors have pretty good coverage. Luxurious design color is very suitable for gifts or collectibles. The color is also suitable for those of you who want to try a new material. Color suitable for many types of paintings such as landscape, illustration, anime, still life, ...', 496000, 0, 10),
 	(2, 3, 'Maxon drawing paper', 'Maxon comic paper is a specialized line of paper for drawing manga. Smooth paper, pre-lined with a picture frame at the edge to draw stories. Paper suitable for drawing iron pens, needle pens. The surface of the paper makes the drawing process smoother, and the nib lasts longer. Paper tough, anti-fraying', 68000, 0, 5),
 	(4, 3, 'Maxon drawing brushes set', 'Holbein Maxon comic pen and brush set includes a full set of pens and brushes that Japanese artists specialize in drawing comics, bringing', 340000, 0, 20),
@@ -65,3 +48,18 @@ VALUES (2, 1, 'Sketchbook Nabii Ima 160gsm', 'Paper weight: 160gsm. Quantity: 32
 	(5, 6, 'Paper cutting table', 'Support cutting pictures, photos quickly, straight 1 line. The product can cut 300gsm . thick paper', 145000, 0, 14),
 	(5, 6, 'Mini paper cutting knife', 'Support cutting pictures, photos quickly, straight 1 line. The product can cut 300gsm . thick paper', 12000, 0, 51),
 	(5, 6, 'Professional geometric drawing ruler', 'Professional geometric drawing rulers support drawing, drawing advanced molds on request with a variety of designs and sizes. The product is suitable for drawing technical drawings, geometry or application in DIY, crafts, collage, ...', 40000, 0, 54)
+
+INSERT INTO [Category]
+VALUES ('Paint'),
+	('Paper'),
+	('Pen'),
+	('Brush'),
+	('Others')
+
+INSERT INTO [Supplier]
+VALUES ('Nabii'),
+	('Van Gogh'),
+	('Holbein'),
+	('White Nights'),
+	('Mono'),
+	('Nobrand')

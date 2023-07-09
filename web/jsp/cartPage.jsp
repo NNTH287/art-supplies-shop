@@ -51,9 +51,7 @@
                         <tbody class="align-middle">
                             <fmt:setLocale value="vi_VN"/>
                             
-                                <c:set var="subTotal" value="${0}"/>
                             <c:forEach items="${cart.getItems()}" var="cartItem">
-                                <c:set var="subTotal" value="${subTotal + (cartItem.price * cartItem.quantity)}"/>
                                 <tr>
                                     <td class="align-middle container-fluid" style="display: flex; align-items: center;">
                                         <img src="img/product-${cartItem.productId}.jpg" alt="" style="width: 50px;">
@@ -89,17 +87,35 @@
                         <div class="border-bottom pb-2">
                             <div class="d-flex justify-content-between mb-3">
                                 <h6>Subtotal</h6>
-                                <h6><fmt:formatNumber type="currency" pattern="###,###¤">${subTotal}</fmt:formatNumber></h6>
+                                <h6>
+                                    <fmt:formatNumber type="currency" pattern="###,###¤">
+                                        <c:choose>
+                                            <c:when test="${subTotal == null || subTotal == 0}">0</c:when>
+                                            <c:otherwise>${subTotal}</c:otherwise>
+                                        </c:choose>
+                                    </fmt:formatNumber>
+                                </h6>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <h6 class="font-weight-medium">Shipping</h6>
-                                <h6 class="font-weight-medium"><fmt:formatNumber type="currency" pattern="###,###¤">${numberOfItemsInCart * 5000}</fmt:formatNumber></h6>
+                                <h6 class="font-weight-medium">
+                                    <fmt:formatNumber type="currency" pattern="###,###¤">
+                                        <c:choose>
+                                            <c:when test="${shippingFee == null || shippingFee == 0}">0</c:when>
+                                            <c:otherwise>${shippingFee}</c:otherwise>
+                                        </c:choose>
+                                    </fmt:formatNumber>
+                                </h6>
                             </div>
                         </div>
                         <div class="pt-2">
                             <div class="d-flex justify-content-between mt-2">
                                 <h5>Total</h5>
-                                <h5><fmt:formatNumber type="currency" pattern="###,###¤">${numberOfItemsInCart*5000 + subTotal}</fmt:formatNumber></h5>
+                                <h5>
+                                    <fmt:formatNumber type="currency" pattern="###,###¤">
+                                        ${shippingFee + subTotal}
+                                    </fmt:formatNumber>
+                                </h5>
                             </div>
                             <a href="checkout"><button class="btn btn-block btn-primary font-weight-bold my-3 py-3" onclick="home">Proceed To Checkout</button></a>
                         </div>
