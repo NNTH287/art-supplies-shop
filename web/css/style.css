@@ -160,7 +160,6 @@ a {
 
 a:hover {
   color: #8fd5ff;
-  text-decoration: underline;
 }
 
 a:not([href]):not([class]) {
@@ -9714,6 +9713,9 @@ a.text-dark:hover, a.text-dark:focus {
 .product-name-in-cart:hover{
   text-decoration: none;
 }
+
+.fa-user:before{content:"\f007"}
+
 @keyframes action {
   0% {
     transform: translateY(0);
