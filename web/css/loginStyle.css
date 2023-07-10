@@ -178,6 +178,20 @@ footer a, footer a:link {
   color: #491217;
 }
 
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.alert-success hr {
+  border-top-color: #b1dfbb;
+}
+
+.alert-success .alert-link {
+  color: #0b2e13;
+}
+
 .close {
   float: right;
   font-size: 1.5rem;

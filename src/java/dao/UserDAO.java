@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import model.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -47,6 +48,32 @@ public class UserDAO extends jdbc.DBConnect {
             Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public int addUser(User user) {
+        int rowsAffected = 0;
+        String sql = "INSERT INTO [dbo].[User]\n"
+                + "           ([role]\n"
+                + "           ,[firstName]\n"
+                + "           ,[lastName]\n"
+                + "           ,[email]\n"
+                + "           ,[password]\n"
+                + "           ,[phone])\n"
+                + "     VALUES\n"
+                + "           ('" + user.getRole() + "', '"
+                + user.getFirstName() + "', '"
+                + user.getLastName() + "', '"
+                + user.getEmail() + "', '"
+                + user.getPassword()+ "', '"
+                + user.getPhone() + "')";        
+        try {
+            Statement state = conn.createStatement();
+            rowsAffected = state.executeUpdate(sql);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return rowsAffected;
     }
 
     public static void main(String[] args) {

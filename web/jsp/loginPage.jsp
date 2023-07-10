@@ -37,8 +37,8 @@
     <div class="wrapper">
         <form action="login" class="login" method="POST">
             <p class="title">Log in</p>
-            <% if(request.getAttribute("notification") != null) { %>
-                <div class="alert alert-danger">
+            <% if(session.getAttribute("notification") != null) { %>
+                <div class="alert <c:choose><c:when test="${notiType == 'RED'}">alert-danger</c:when><c:otherwise>alert-success</c:otherwise></c:choose>">
                     <strong>${notification}</strong>
                     <%session.removeAttribute("notification");%>
                 </div>
@@ -47,7 +47,7 @@
             <i class="fa fa-user"></i>
             <input name="password" type="password" placeholder="Password" />
             <i class="fa fa-key"></i>
-            <a href="signUp">Sign Up</a>
+            <a href="signup">Sign Up</a>
             <button onclick="this.form.submit()">
                 <i class="spinner"></i>
                 <span class="state">Log in</span>

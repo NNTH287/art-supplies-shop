@@ -1,7 +1,6 @@
 package controller;
 
 import dao.UserDAO;
-import model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -9,39 +8,44 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import model.User;
+import util.Helper;
 
 /**
  *
  * @author Huy Nguyen
  */
-public class LoginController extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+public class SignupController extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginController</title>");  
+            out.println("<title>Servlet SignupController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginController at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet SignupController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    } 
+    }
 
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -49,12 +53,15 @@ public class LoginController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        request.getRequestDispatcher("/jsp/loginPage.jsp").forward(request, response);
-    } 
+            throws ServletException, IOException {
+        Helper.getCategory(request);
+        Helper.getBrand(request);
+        request.getRequestDispatcher("/jsp/signupPage.jsp").forward(request, response);
+    }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -62,43 +69,31 @@ public class LoginController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        String username = request.getParameter("username");
+            throws ServletException, IOException {
+        String role = "Customer";
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String email = request.getParameter("email");
         String password = request.getParameter("password");
-        if (username == null || username.equals("")) {
-            HttpSession session = request.getSession();
-            session.setAttribute("notiType", "RED");
-            session.setAttribute("notification", "Email cannot be blank!");
-            doGet(request, response);
-        } else if (password == null || password.equals("")){
-            HttpSession session = request.getSession();
-            session.setAttribute("notiType", "RED");
-            session.setAttribute("notification", "Password cannot be blank!");
-            doGet(request, response);
-        }
+        String phone = request.getParameter("phone");
+        User user = new User(role, firstName, lastName, email, password, phone);
         UserDAO udao = new UserDAO();
-        User user = udao.getByEmail(username);
-        if (user != null) {
-            if (user.getPassword().equals(password)) {
-                HttpSession session = request.getSession();
-                session.setAttribute("userId", user.getId());
-                response.sendRedirect("home");
-            } else {
-                HttpSession session = request.getSession();
-                session.setAttribute("notiType", "RED");
-                session.setAttribute("notification", "Wrong password!");destroy();
-                doGet(request, response);
-            }
+        boolean success = udao.addUser(user) == 1;
+        if (success) {
+            HttpSession session = request.getSession();
+            session.setAttribute("notification", "Sign up success! Please login to your account");
+            response.sendRedirect("login");
         } else {
             HttpSession session = request.getSession();
             session.setAttribute("notiType", "RED");
-            session.setAttribute("notification", "User doesn't exists!");
+            session.setAttribute("notification", "Sign up failed!");
             doGet(request, response);
         }
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override
