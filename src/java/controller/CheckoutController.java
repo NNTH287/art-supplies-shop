@@ -6,6 +6,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import model.Cart;
 import util.Helper;
 
 /**
@@ -40,8 +42,15 @@ public class CheckoutController extends HttpServlet {
     throws ServletException, IOException {
         Helper.getCategory(request);
         Helper.getBrand(request);
-        
-        request.getRequestDispatcher("/jsp/checkoutPage.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        Cart cart = (Cart) session.getAttribute("cart");
+        if (cart == null || cart.getItems().size() == 0) {
+            session.setAttribute("notiType", "RED");
+            session.setAttribute("notification", "Your cart is empty!");
+            request.getRequestDispatcher("/jsp/homePage.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("/jsp/checkoutPage.jsp").forward(request, response);
+        }
     } 
 
     /** 

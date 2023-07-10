@@ -57,7 +57,7 @@
                 <div class="col-lg-4 col-6 text-right">
                     <% if(session.getAttribute("userId") == null) {%>
                     <a href="login" class="btn btn-primary mx-2">Log In</a>
-                    <a href="signUp" class="btn btn-primary">Sign Up</a>
+                    <a href="signup" class="btn btn-primary">Sign Up</a>
                     <%} else {%>
                     <a href="account" class="fa fa-user-circle btn btn-primary mx-2"></a>
                     <a href="logout" class="btn btn-primary">Log Out</a>
@@ -139,10 +139,11 @@
         <div class="container-fluid mb-3">
             <div class="row px-xl-5">
                 <div class="col-lg-12">
-                    <div class="alert alert-success">
+                    <div class="alert <c:choose><c:when test="${notiType == 'RED'}">alert-danger</c:when><c:otherwise>alert-success</c:otherwise></c:choose>">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                         <strong><%= session.getAttribute("notification")%></strong>
                         <%session.removeAttribute("notification");%>
+                        <%session.removeAttribute("notiType");%>
                     </div>
                 </div>
             </div>
