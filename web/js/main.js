@@ -99,6 +99,10 @@
         }
         button.parent().parent().parent().find('input').val(newVal);
 
+        if (newVal == 0) {
+            button.closest("tr").remove();
+        }
+
         var currentCol = button.parent().parent().parent();
         var price = currentCol.prev().text().slice(0,-1).replace(/\./g, '');
         var oldTotal = currentCol.next().text().slice(0,-1).replace(/\./g, '');
@@ -109,9 +113,11 @@
                 var shipping = parseInt($("#shippingText").text().slice(0,-1).replace(/\./g, '')) + 5000;
             }
         } else {
-            var newTotal = (parseInt(oldTotal) - parseInt(price));
-            var subtotal = parseInt($("#subtotalText").text().slice(0,-1).replace(/\./g, '')) - oldTotal + newTotal;
-            var shipping = parseInt($("#shippingText").text().slice(0,-1).replace(/\./g, '')) - 5000;
+            if(currentCol.hasClass('align-middle')) {
+                var newTotal = (parseInt(oldTotal) - parseInt(price));
+                var subtotal = parseInt($("#subtotalText").text().slice(0,-1).replace(/\./g, '')) - oldTotal + newTotal;
+                var shipping = parseInt($("#shippingText").text().slice(0,-1).replace(/\./g, '')) - 5000;
+            }
         }
         var total = subtotal + shipping;
         currentCol.next().text(newTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + 'đ');

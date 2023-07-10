@@ -8,7 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-        <head>
+    <head>
         <meta charset="utf-8">
         <title>Elj Shop - Online Art Supplies Shop</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -24,7 +24,7 @@
 
         <!-- Font Awesome -->
         <link href="${pageContext.request.contextPath}/css/font-awesome_5.10.0_css_all.min.css?version=1" rel="stylesheet">
-        
+
         <!-- Libraries Stylesheet -->
         <link href="${pageContext.request.contextPath}/lib/animate/animate.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
@@ -59,6 +59,7 @@
                     <a href="login" class="btn btn-primary mx-2">Log In</a>
                     <a href="signUp" class="btn btn-primary">Sign Up</a>
                     <%} else {%>
+                    <a href="account" class="fa fa-user-circle btn btn-primary mx-2"></a>
                     <a href="logout" class="btn btn-primary">Log Out</a>
                     <%}%>
                 </div>
