@@ -6342,6 +6342,39 @@ button.bg-dark:focus {
 .d-inline-flex {
   display: inline-flex !important;
 }
+@media (max-width: 576px) {
+  .pt-xs-3 {
+    padding-top: 1rem !important;
+  }
+
+  .d-xs-none {
+    display: none !important;
+  }
+  .d-xs-inline {
+    display: inline !important;
+  }
+  .d-xs-inline-block {
+    display: inline-block !important;
+  }
+  .d-xs-block {
+    display: block !important;
+  }
+  .d-xs-table {
+    display: table !important;
+  }
+  .d-xs-table-row {
+    display: table-row !important;
+  }
+  .d-xs-table-cell {
+    display: table-cell !important;
+  }
+  .d-xs-flex {
+    display: flex !important;
+  }
+  .d-xs-inline-flex {
+    display: inline-flex !important;
+  }
+}
 
 @media (min-width: 576px) {
   .d-sm-none {
@@ -9175,6 +9208,18 @@ button.bg-dark:focus {
 
 .text-center {
   text-align: center !important;
+}
+
+@media (max-width: 576px) {
+  .text-xs-left {
+    text-align: left !important;
+  }
+  .text-xs-right {
+    text-align: right !important;
+  }
+  .text-xs-center {
+    text-align: center !important;
+  }
 }
 
 @media (min-width: 576px) {
