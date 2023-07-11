@@ -73,10 +73,14 @@ public class SignupController extends HttpServlet {
         String role = "Customer";
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
+        String street = request.getParameter("street");
+        String city = request.getParameter("city");
+        String province = request.getParameter("province");
+        String country = request.getParameter("country");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String phone = request.getParameter("phone");
-        User user = new User(role, firstName, lastName, email, password, phone);
+        User user = new User(role, firstName, lastName, street, city, province, country, email, password, phone);
         UserDAO udao = new UserDAO();
         boolean success = udao.addUser(user) == 1;
         if (success) {

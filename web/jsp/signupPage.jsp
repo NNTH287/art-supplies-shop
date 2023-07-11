@@ -36,6 +36,22 @@
                                     <input name="lastName" class="form-control" type="text" placeholder="Doe" required>
                                 </div>
                                 <div class="col-md-6 form-group">
+                                    <label>Street</label>
+                                    <input name="street" class="form-control" type="text" placeholder="Street" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>City</label>
+                                    <input name="city" class="form-control" type="text" placeholder="City" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Province</label>
+                                    <input name="province" class="form-control" type="text" placeholder="Province" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Country</label>
+                                    <input name="country" class="form-control" type="text" placeholder="Country" required>
+                                </div>
+                                <div class="col-md-6 form-group">
                                     <label>E-mail</label>
                                     <input name="email" class="form-control" type="email" placeholder="example@email.com" required>
                                 </div>

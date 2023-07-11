@@ -1,14 +1,19 @@
+use master
+
+use ArtSuppliesShop
+go
+
 INSERT INTO [User]
-VALUES ('Admin', 'Huy', 'Nguyen', 'huyhol287@gmail.com', '123456', '0911362307'),
-	('Customer', 'Thu', 'Le', 'lethu@hotmail.com', '123456', '0292827403'),
-	('Customer', 'Giang', 'Dao', 'giang@mail.com', '123456', '0493891233'),
-	('Customer', 'Long', 'Pham', 'long@mail.com', '123456', '(171) 555-9199'),
-	('Customer', 'Nam', 'Nguyen', 'nam@mail.com', '123456', '0241-059428'),
-	('Customer', 'Hung', 'Thai', 'hung@mail.com', '123456', '(91) 555 55 93'),
-	('Customer', 'Kien', 'Dinh', 'kien@mail.com', '123456', '(2) 354-2535'),
-	('Customer', 'Ngan', 'Nguyen', 'ngan@mail.com', '123456', '(93) 203 4561'),
-	('Customer', 'Khanh', 'Pham', 'khanh@mail.com', '123456', '(2) 283-3397'),
-	('Customer', 'Cuong', 'Ngo', 'cuong@mail.com', '123456', '(5) 555-1340')
+VALUES ('Admin', 'Huy', 'Nguyen', '288, thon 3, xa Thach Hoa, huyen Thach That', 'Ha Noi', 'Hanoi', 'Vietnam', 'huyhol287@gmail.com', '123456', '0911362307'),
+	('Customer', 'Thu', 'Le', 'National Highway 1A', 'Vinh Tan Ward', 'Binh Thuan', 'Vietnam', 'lethu@hotmail.com', '123456', '0292827403'),
+	('Customer', 'Giang', 'Dao', '10 Quang Trung St.', 'Binh Dinh Townlet', 'Binh Dinh', 'Vietnam', 'giang@mail.com', '123456', '0493891233'),
+	('Customer', 'Long', 'Pham', '266B Nguyen Tieu La St., Ward 8, Dist. 10', 'Ho Chi Minh City', 'Ho Chi Minh City', 'Vietnam', 'long@mail.com', '123456', '(171) 555-9199'),
+	('Customer', 'Nam', 'Nguyen', '30 Pho Duc Chinh Street, Truc Bach Ward', 'Ba Dinh District', 'Hanoi', 'Vietnam', 'nam@mail.com', '123456', '0241-059428'),
+	('Customer', 'Hung', 'Thai', '9 Duong Thanh Street', 'Hoan Kiem District', 'Hanoi', 'Vietnam', 'hung@mail.com', '123456', '(91) 555 55 93'),
+	('Customer', 'Kien', 'Dinh', '101 Le Loi Street, Ward 1', 'My Tho City', 'Tien Giang', 'Vietnam', 'kien@mail.com', '123456', '(2) 354-2535'),
+	('Customer', 'Ngan', 'Nguyen', '279 Nguyen Van Luong, District 6', 'Ho Chi Minh City', 'Ho Chi Minh City', 'Vietnam', 'ngan@mail.com', '123456', '(93) 203 4561'),
+	('Customer', 'Khanh', 'Pham', '14A Trung Trac Street, Le Hong Phong Ward', 'Le Hong Phong Ward', 'Thai Binh', 'Vietnam', 'khanh@mail.com', '123456', '(2) 283-3397'),
+	('Customer', 'Cuong', 'Ngo', 'nha B15, Do thi moi Dai Kim, Hoang Mai', 'Ha Noi', 'Hanoi', 'Vietnam', 'cuong@mail.com', '123456', '(5) 555-1340')
 
 INSERT INTO [Payment]
 VALUES ('Credit Card'),
@@ -21,7 +26,6 @@ VALUES (1, 1, '2237102713301732|12|2025|636'),
 	(5, 1, '4175707766525506|11|2027|886'),
 	(7, 1, '578723287801764|09|2027|264'),
 	(8, 1, '326246871035818|04|2026|374'),
-	(11, 1, '537474607750048|02|2027|326'),
 	(1, 2, 'Street: 37/49B, C1 Street, Ward 13|City: Tan Binh District|State/province/area: Ho Chi Minh City'),
 	(2, 2, 'Street: National Highway 1A|City:   Vinh Tan Ward|State/province/area: Binh Thuan'),
 	(3, 2, 'Street: 10 Quang Trung St.|City: Binh Dinh Townlet|State/province/area: Binh Dinh'),
@@ -31,8 +35,7 @@ VALUES (1, 1, '2237102713301732|12|2025|636'),
 	(7, 2, 'Street: 101 Le Loi Street, Ward 1|City: My Tho City|State/province/area: Tien Giang'),
 	(8, 2, 'Street: 279 Nguyen Van Luong, District 6|City: Ho Chi Minh City|State/province/area: Ho Chi Minh City'),
 	(9, 2, 'Street: 14A Trung Trac Street, Le Hong Phong Ward|City: Le Hong Phong Ward|State/province/area: Thai Binh'),
-	(10, 2, 'Street: 19/9 Tan Ky Tan Quy, Tan Son Nhi Ward|City: Tan Phu Dist.|State/province/area: Ho Chi Minh City'),
-	(11, 2, 'Street: nha B15, Do thi moi Dai Kim, Hoang Mai|City: Ha Noi|State/province/area: Hanoi')
+	(10, 2, 'Street: 19/9 Tan Ky Tan Quy, Tan Son Nhi Ward|City: Tan Phu Dist.|State/province/area: Ho Chi Minh City')
 
 INSERT INTO [Product]
 VALUES (2, 1, 'Sketchbook Nabii Ima 160gsm', 'Paper weight: 160gsm. Quantity: 32 sheets/book. Size: A5, A4 size. Color: Cream. Paper grain: Light grain', 75000, 0.05, 5),
@@ -56,7 +59,7 @@ VALUES ('Paint'),
 	('Brush'),
 	('Others')
 
-INSERT INTO [Supplier]
+INSERT INTO [Brand]
 VALUES ('Nabii'),
 	('Van Gogh'),
 	('Holbein'),

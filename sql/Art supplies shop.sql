@@ -15,6 +15,10 @@ CREATE TABLE [User] (
   [role] varchar(15) NOT NULL,
   [firstName] nvarchar(50),
   [lastName] nvarchar(50),
+  [street] varchar(50),
+  [city] varchar(30),
+  [province] varchar(30),
+  [country] varchar(30),
   [email] varchar(50),
   [password] varchar(20),
   [phone] varchar(15)
@@ -143,9 +147,6 @@ GO
 ALTER TABLE [OrderDetail] ADD FOREIGN KEY ([productId]) REFERENCES [Product] ([id])
 GO
 
-ALTER TABLE [OrderDetail] ADD FOREIGN KEY ([productName]) REFERENCES [Product] ([name])
-GO
-
 ALTER TABLE [Cart] ADD FOREIGN KEY ([userId]) REFERENCES [User] ([id])
 GO
 
@@ -155,5 +156,3 @@ GO
 ALTER TABLE [CartItem] ADD FOREIGN KEY ([productId]) REFERENCES [Product] ([id])
 GO
 
-ALTER TABLE [CartItem] ADD FOREIGN KEY ([productName]) REFERENCES [Product] ([name])
-GO

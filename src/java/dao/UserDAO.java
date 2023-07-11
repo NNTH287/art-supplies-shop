@@ -14,6 +14,10 @@ public class UserDAO extends jdbc.DBConnect {
                 + "      ,[role]\n"
                 + "      ,[firstName]\n"
                 + "      ,[lastName]\n"
+                + "      ,[street]\n"
+                + "      ,[city]\n"
+                + "      ,[province]\n"
+                + "      ,[country]"
                 + "      ,[email]\n"
                 + "      ,[password]\n"
                 + "      ,[phone]\n"
@@ -27,6 +31,10 @@ public class UserDAO extends jdbc.DBConnect {
                 + "      ,[role]\n"
                 + "      ,[firstName]\n"
                 + "      ,[lastName]\n"
+                + "      ,[street]\n"
+                + "      ,[city]\n"
+                + "      ,[province]\n"
+                + "      ,[country]"
                 + "      ,[password]\n"
                 + "      ,[phone]\n"
                 + "  FROM [dbo].[User]"
@@ -40,9 +48,13 @@ public class UserDAO extends jdbc.DBConnect {
                 String role = rs.getString(2);
                 String firstName = rs.getString(3);
                 String lastName = rs.getString(4);
-                String password = rs.getString(5);
-                String phone = rs.getString(6);
-                return new User(id, role, firstName, lastName, email, password, phone);
+                String street = rs.getString(5);
+                String city = rs.getString(6);
+                String province = rs.getString(7);
+                String country = rs.getString(8);
+                String password = rs.getString(9);
+                String phone = rs.getString(10);
+                return new User(id, role, firstName, lastName, street, city, province, country, email, password, phone);
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -56,6 +68,10 @@ public class UserDAO extends jdbc.DBConnect {
                 + "           ([role]\n"
                 + "           ,[firstName]\n"
                 + "           ,[lastName]\n"
+                + "           ,[street]\n"
+                + "           ,[city]\n"
+                + "           ,[province]\n"
+                + "           ,[country]"
                 + "           ,[email]\n"
                 + "           ,[password]\n"
                 + "           ,[phone])\n"
@@ -63,9 +79,13 @@ public class UserDAO extends jdbc.DBConnect {
                 + "           ('" + user.getRole() + "', '"
                 + user.getFirstName() + "', '"
                 + user.getLastName() + "', '"
+                + user.getStreet()+ "', '"
+                + user.getCity()+ "', '"
+                + user.getProvince() + "', '"
+                + user.getCountry() + "', '"
                 + user.getEmail() + "', '"
-                + user.getPassword()+ "', '"
-                + user.getPhone() + "')";        
+                + user.getPassword() + "', '"
+                + user.getPhone() + "')";
         try {
             Statement state = conn.createStatement();
             rowsAffected = state.executeUpdate(sql);
