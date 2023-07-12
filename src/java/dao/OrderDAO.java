@@ -4,8 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -63,25 +61,74 @@ public class OrderDAO extends jdbc.DBConnect {
                 + "           ,[shipPhone]\n"
                 + "           ,[status]\n"
                 + "           ,[createdTime])"
-                + "     VALUES\n"
-                + "           (" + order.getUserId() + ", '"
-                + order.getReceiver() + "', '"
-                + order.getShipStreet() + "', '"
-                + order.getShipCity() + "', '"
-                + order.getShipProvince() + "', '"
-                + order.getShipCountry() + "', '"
-                + order.getShipEmail() + "', '"
-                + order.getShipPhone() + "', '"
-                + order.getStatus() + "', '"
-                + order.getCreatedTime() + "')";
+                + "     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
         try {
-            Statement state = conn.createStatement();
-            rowsAffected = state.executeUpdate(sql);
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setInt(1, order.getUserId());
+            pre.setString(2, order.getReceiver());
+            pre.setString(3, order.getShipStreet());
+            pre.setString(4, order.getShipCity());
+            pre.setString(5, order.getShipProvince());
+            pre.setString(6, order.getShipCountry());
+            pre.setString(7, order.getShipEmail());
+            pre.setString(8, order.getShipPhone());
+            pre.setString(9, order.getStatus());
+            pre.setString(10, order.getCreatedTime());
+            rowsAffected = pre.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
 
         return rowsAffected;
+    }
+
+    public int addOrder(Order order, boolean returnId) {
+        if (!returnId) {
+            return addOrder(order);
+        }
+        int orderId = -1;
+        String sql = "INSERT INTO [dbo].[Order]\n"
+                + "           ([userId]\n"
+                + "           ,[receiver]\n"
+                + "           ,[shipStreet]\n"
+                + "           ,[shipCity]\n"
+                + "           ,[shipProvince]\n"
+                + "           ,[shipCountry]\n"
+                + "           ,[shipEmail]\n"
+                + "           ,[shipPhone]\n"
+                + "           ,[status]\n"
+                + "           ,[createdTime])"
+                + "     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pre.setInt(1, order.getUserId());
+            pre.setString(2, order.getReceiver());
+            pre.setString(3, order.getShipStreet());
+            pre.setString(4, order.getShipCity());
+            pre.setString(5, order.getShipProvince());
+            pre.setString(6, order.getShipCountry());
+            pre.setString(7, order.getShipEmail());
+            pre.setString(8, order.getShipPhone());
+            pre.setString(9, order.getStatus());
+            pre.setString(10, order.getCreatedTime());
+            
+            int affectedRows = pre.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Adding order failed, no rows affected.");
+            }
+
+            ResultSet generatedKeys = pre.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                orderId = generatedKeys.getInt(1);
+            } else {
+                throw new SQLException("Adding order failed, no ID obtained.");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return orderId;
     }
 
     public static void main(String[] args) {

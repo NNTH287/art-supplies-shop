@@ -19,6 +19,14 @@ public class OrderDetail {
         this.price = price;
         this.quantity = quantity;
     }
+    
+    public OrderDetail(int orderId, int productId, String productName, double price, int quantity) {
+        this.orderId = orderId;
+        this.productId = productId;
+        this.productName = productName;
+        this.price = price;
+        this.quantity = quantity;
+    }
 
     public int getId() {
         return id;
