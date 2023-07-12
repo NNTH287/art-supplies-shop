@@ -138,20 +138,19 @@ public class UserDAO extends jdbc.DBConnect {
                 + "           ,[email]\n"
                 + "           ,[password]\n"
                 + "           ,[phone])\n"
-                + "     VALUES\n"
-                + "           ('" + user.getRole() + "', '"
-                + user.getFirstName() + "', '"
-                + user.getLastName() + "', '"
-                + user.getStreet() + "', '"
-                + user.getCity() + "', '"
-                + user.getProvince() + "', '"
-                + user.getCountry() + "', '"
-                + user.getEmail() + "', '"
-                + user.getPassword() + "', '"
-                + user.getPhone() + "')";
+                + "     VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
-            Statement state = conn.createStatement();
-            rowsAffected = state.executeUpdate(sql);
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, user.getRole());
+            pre.setString(2, user.getFirstName());
+            pre.setString(3, user.getLastName());
+            pre.setString(4, user.getStreet());
+            pre.setString(5, user.getCity());
+            pre.setString(6, user.getProvince());
+            pre.setString(7, user.getCountry());
+            pre.setString(8, user.getEmail());
+            pre.setString(9, user.getPassword());
+            pre.setString(10, user.getPhone());
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -159,6 +158,54 @@ public class UserDAO extends jdbc.DBConnect {
         return rowsAffected;
     }
 
+    public int addUser(User user, boolean returnId) {
+        if (!returnId) {
+            return addUser(user);
+        }
+        int userId = -1;
+        String sql = "INSERT INTO [dbo].[User]\n"
+                + "           ([role]\n"
+                + "           ,[firstName]\n"
+                + "           ,[lastName]\n"
+                + "           ,[street]\n"
+                + "           ,[city]\n"
+                + "           ,[province]\n"
+                + "           ,[country]"
+                + "           ,[email]\n"
+                + "           ,[password]\n"
+                + "           ,[phone])\n"
+                + "     VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pre.setString(1, user.getRole());
+            pre.setString(2, user.getFirstName());
+            pre.setString(3, user.getLastName());
+            pre.setString(4, user.getStreet());
+            pre.setString(5, user.getCity());
+            pre.setString(6, user.getProvince());
+            pre.setString(7, user.getCountry());
+            pre.setString(8, user.getEmail());
+            pre.setString(9, user.getPassword());
+            pre.setString(10, user.getPhone());
+            
+            int affectedRows = pre.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Adding user failed, no rows affected.");
+            }
+
+            ResultSet generatedKeys = pre.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                userId = generatedKeys.getInt(1);
+            } else {
+                throw new SQLException("Adding user failed, no ID obtained.");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return userId;
+    }
+    
     public static void main(String[] args) {
         UserDAO dao = new UserDAO();
         Vector<String> v = dao.getPaymentInfo(1, 1);

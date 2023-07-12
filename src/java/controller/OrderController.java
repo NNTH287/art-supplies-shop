@@ -2,6 +2,7 @@ package controller;
 
 import dao.OrderDAO;
 import dao.OrderDetailDAO;
+import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import model.Cart;
 import model.CartItem;
 import model.OrderDetail;
+import model.User;
 
 /**
  *
@@ -81,36 +83,24 @@ public class OrderController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        //Insert to order table
-        int userId = (Integer) session.getAttribute("userId");
-        String receiver = request.getParameter("firstName") + " " + request.getParameter("lastName");
-        String shipStreet = request.getParameter("street");
-        String shipCity = request.getParameter("city");
-        String shipProvince = request.getParameter("province");
-        String shipCountry = request.getParameter("country");
-        String shipEmail = request.getParameter("email");
-        String shipPhone = request.getParameter("phone");
-        String status = "Wait";
-        String createdTime = java.time.LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
-        Order order = new Order(userId, receiver, shipStreet, shipCity, shipProvince, shipCountry, shipEmail, shipPhone, status, createdTime);
-        OrderDAO odao = new OrderDAO();
-        int orderId = odao.addOrder(order, true); //return id = true
-
-        //Insert to orderDetail table
-        Cart cart = (Cart) session.getAttribute("cart");
-        OrderDetailDAO oddao = new OrderDetailDAO();
-        for (CartItem item : cart.getItems()) {
-            OrderDetail orderDetail = new OrderDetail(orderId, item.getProductId(), item.getProductName(), item.getPrice(), item.getQuantity());
-            oddao.addOrderDetail(orderDetail);
+        int userId = -1;
+        if (session.getAttribute("userId") == null) {
+            System.out.println(request.getParameter("newAccount"));
+            if (request.getParameter("newAccount") == null) {
+                userId = Helper.createAccount(request, "Guest", true); //return id = true
+                session.setAttribute("notification", "Order successfully! Please check your email for order details!");
+                response.sendRedirect("home");
+            } else if (request.getParameter("newAccount").equals("on")) {
+                userId = Helper.createAccount(request, "Customer", true); //return id = true
+                session.setAttribute("notification", "Order successfully! Please loginto see order details!");
+                response.sendRedirect("login");
+            }
+        } else {
+            userId = (Integer) session.getAttribute("userId");
+            response.sendRedirect("order");
         }
-
-        //Clear cart
-        session.removeAttribute("cart");
-        session.removeAttribute("subtotal");
-        session.removeAttribute("numberOfItemsInCart");
-        session.removeAttribute("shippingFee");
-
-        response.sendRedirect("order");
+        insertOrderInfo(session, request, userId);
+        clearCart(session);
     }
 
     /**
@@ -123,4 +113,34 @@ public class OrderController extends HttpServlet {
         return "Short description";
     }
 
+    protected void insertOrderInfo(HttpSession session, HttpServletRequest request, int userId) {
+        //Insert to order table
+        String receiver = request.getParameter("firstName") + " " + request.getParameter("lastName");
+        String shipStreet = request.getParameter("street");
+        String shipCity = request.getParameter("city");
+        String shipProvince = request.getParameter("province");
+        String shipCountry = request.getParameter("country");
+        String shipEmail = request.getParameter("email");
+        String shipPhone = request.getParameter("phone");
+        String status = "Wait";
+        String createdTime = java.time.LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
+        Order order = new Order(userId, receiver, shipStreet, shipCity, shipProvince, shipCountry, shipEmail, shipPhone, status, createdTime);
+        OrderDAO odao = new OrderDAO();
+        int orderId = odao.addOrder(order, true); //return id = true
+        
+        //Insert to orderDetail table
+        Cart cart = (Cart) session.getAttribute("cart");
+        OrderDetailDAO oddao = new OrderDetailDAO();
+        for (CartItem item : cart.getItems()) {
+            OrderDetail orderDetail = new OrderDetail(orderId, item.getProductId(), item.getProductName(), item.getPrice(), item.getQuantity());
+            oddao.addOrderDetail(orderDetail);
+        }
+    }
+
+    protected void clearCart(HttpSession session) {
+        session.removeAttribute("cart");
+        session.removeAttribute("subtotal");
+        session.removeAttribute("numberOfItemsInCart");
+        session.removeAttribute("shippingFee");
+    }
 }
