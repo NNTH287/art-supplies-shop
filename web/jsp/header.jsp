@@ -99,7 +99,7 @@
                             <div class="navbar-nav mr-auto py-0">
                                 <a href="home" class="nav-item nav-link active">Home</a>
                                 <a href="shop?sale=" class="nav-item nav-link">On sale</a>
-                                <a href="" class="nav-item nav-link">Combo</a>
+                                <a href="shop?cateId=2" class="nav-item nav-link">Combo</a>
                                 <div class="nav-item dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Brands <i class="fa fa-angle-down mt-1"></i></a>
                                     <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">

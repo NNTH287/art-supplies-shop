@@ -34,9 +34,9 @@
                                 <img class="position-absolute w-100 h-100" src="${pageContext.request.contextPath}/img/carousel-1.jpg" style="object-fit: cover;">
                                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                     <div class="p-3" style="max-width: 700px;">
-                                        <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Men Fashion</h1>
-                                        <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
-                                        <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Shop Now</a>
+                                        <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Drawing Paper</h1>
+                                        <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Special paper for drawing with great thickness. Suitable for many types of color, especially watercolor.</p>
+                                        <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="shop?cateId=6">Shop Now</a>
                                     </div>
                                 </div>
                             </div>
@@ -44,9 +44,9 @@
                                 <img class="position-absolute w-100 h-100" src="${pageContext.request.contextPath}/img/carousel-2.jpg" style="object-fit: cover;">
                                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                     <div class="p-3" style="max-width: 700px;">
-                                        <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Women Fashion</h1>
-                                        <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
-                                        <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Shop Now</a>
+                                        <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Drawing Paint</h1>
+                                        <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Color belongs to the segment of high-class artist. The color is produced based on the traditional color formula.</p>
+                                        <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="shop?cateId=5">Shop Now</a>
                                     </div>
                                 </div>
                             </div>
@@ -54,9 +54,9 @@
                                 <img class="position-absolute w-100 h-100" src="${pageContext.request.contextPath}/img/carousel-3.jpg" style="object-fit: cover;">
                                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                     <div class="p-3" style="max-width: 700px;">
-                                        <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Kids Fashion</h1>
-                                        <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
-                                        <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Shop Now</a>
+                                        <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Drawing Brushes</h1>
+                                        <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Brushes that artists specialize in drawing comics, bringing, etc. Suitable for many types of purpose.</p>
+                                        <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="shop?cateId=4">Shop Now</a>
                                     </div>
                                 </div>
                             </div>
@@ -67,17 +67,17 @@
                     <div class="product-offer mb-30" style="height: 200px;">
                         <img class="img-fluid" src="${pageContext.request.contextPath}/img/offer-1.jpg" alt="">
                         <div class="offer-text">
-                            <h6 class="text-white text-uppercase">Save 20%</h6>
+                            <h6 class="text-white text-uppercase">Save 25%</h6>
                             <h3 class="text-white mb-3">Special Offer</h3>
-                            <a href="" class="btn btn-primary">Shop Now</a>
+                            <a href="shop?sale=" class="btn btn-primary">Shop Now</a>
                         </div>
                     </div>
                     <div class="product-offer mb-30" style="height: 200px;">
                         <img class="img-fluid" src="${pageContext.request.contextPath}/img/offer-2.jpg" alt="">
                         <div class="offer-text">
-                            <h6 class="text-white text-uppercase">Save 20%</h6>
-                            <h3 class="text-white mb-3">Special Offer</h3>
-                            <a href="" class="btn btn-primary">Shop Now</a>
+                            <h6 class="text-white text-uppercase">Save More</h6>
+                            <h3 class="text-white mb-3">Special Combo</h3>
+                            <a href="shop?cateId=2" class="btn btn-primary">Shop Now</a>
                         </div>
                     </div>
                 </div>
@@ -122,7 +122,7 @@
             <div class="row px-xl-5 pb-3">
                 <c:forEach items="${categories}" var="cate">
                     <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                        <a class="text-decoration-none" href="">
+                        <a class="text-decoration-none" href="shop?cateId=${cate.key.id}">
                             <div class="cat-item d-flex align-items-center mb-4">
                                 <div class="overflow-hidden" style="width: 100px; height: 100px;">
                                     <img class="img-fluid" src="${pageContext.request.contextPath}/img/cate-${cate.key.id}.jpg" alt="">
@@ -204,9 +204,9 @@
                     <div class="product-offer mb-30" style="height: 300px;">
                         <img class="img-fluid" src="${pageContext.request.contextPath}/img/offer-1.jpg" alt="">
                         <div class="offer-text">
-                            <h6 class="text-white text-uppercase">Save 20%</h6>
+                            <h6 class="text-white text-uppercase">Save 25%</h6>
                             <h3 class="text-white mb-3">Special Offer</h3>
-                            <a href="" class="btn btn-primary">Shop Now</a>
+                            <a href="shop?sale=" class="btn btn-primary">Shop Now</a>
                         </div>
                     </div>
                 </div>
@@ -214,9 +214,9 @@
                     <div class="product-offer mb-30" style="height: 300px;">
                         <img class="img-fluid" src="${pageContext.request.contextPath}/img/offer-2.jpg" alt="">
                         <div class="offer-text">
-                            <h6 class="text-white text-uppercase">Save 20%</h6>
-                            <h3 class="text-white mb-3">Special Offer</h3>
-                            <a href="" class="btn btn-primary">Shop Now</a>
+                            <h6 class="text-white text-uppercase">Save More</h6>
+                            <h3 class="text-white mb-3">Special Combo</h3>
+                            <a href="shop?cateId=2" class="btn btn-primary">Shop Now</a>
                         </div>
                     </div>
                 </div>
