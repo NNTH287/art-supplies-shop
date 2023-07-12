@@ -37,12 +37,14 @@
     <div class="wrapper">
         <form action="login" class="login" method="POST">
             <p class="title">Log in</p>
-            <% if(session.getAttribute("notification") != null) { %>
+            
+            <c:if test="${notification != null}">
                 <div class="alert <c:choose><c:when test="${notiType == 'RED'}">alert-danger</c:when><c:otherwise>alert-success</c:otherwise></c:choose>">
                     <strong>${notification}</strong>
                     <%session.removeAttribute("notification");%>
+                    <%session.removeAttribute("notiType");%>
                 </div>
-            <%}%>
+            </c:if>
             <input name="username" type="text" placeholder="Email" autofocus/>
             <i class="fa fa-user"></i>
             <input name="password" type="password" placeholder="Password" />

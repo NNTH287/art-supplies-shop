@@ -137,6 +137,10 @@ public class User {
                 + ", role=" + role
                 + ", firstName=" + firstName
                 + ", lastName=" + lastName
+                + ", street=" + street
+                + ", city=" + city
+                + ", province=" + province
+                + ", country=" + country
                 + ", email=" + email
                 + ", password=" + password
                 + ", phone=" + phone + "}";

@@ -81,6 +81,13 @@ GO
 CREATE TABLE [Order] (
   [id] int PRIMARY KEY NOT NULL IDENTITY(1, 1),
   [userId] int NOT NULL,
+  [receiver] nvarchar(50),
+  [shipStreet] varchar(50),
+  [shipCity] varchar(30),
+  [shipProvince] varchar(30),
+  [shipCountry] varchar(30),
+  [shipEmail] varchar(50),
+  [shipPhone] varchar(15),
   [status] nvarchar(255) NOT NULL,
   [createdTime] datetime
 )
@@ -155,4 +162,3 @@ GO
 
 ALTER TABLE [CartItem] ADD FOREIGN KEY ([productId]) REFERENCES [Product] ([id])
 GO
-

@@ -55,13 +55,16 @@
                     </form>
                 </div>
                 <div class="col-lg-4 col-sm-6 col-12 text-xs-center text-right pt-xs-3">
-                    <% if(session.getAttribute("userId") == null) {%>
-                    <a href="login" class="btn btn-primary mx-2">Log In</a>
-                    <a href="signup" class="btn btn-primary">Sign Up</a>
-                    <%} else {%>
-                    <a href="account" class="fa fa-user-circle btn btn-primary mx-2"></a>
-                    <a href="logout" class="btn btn-primary">Log Out</a>
-                    <%}%>
+                    <c:choose>
+                        <c:when test="${userId == null}">
+                            <a href="login" class="btn btn-primary mx-2">Log In</a>
+                            <a href="signup" class="btn btn-primary">Sign Up</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="order" class="fa fa-user-circle btn btn-primary mx-2"></a>
+                            <a href="logout" class="btn btn-primary">Log Out</a>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </div>
@@ -135,20 +138,20 @@
         <!-- Navbar End -->
 
         <!-- Notification Start -->
-        <% if(session.getAttribute("notification") != null) { %>
-        <div class="container-fluid mb-3">
-            <div class="row px-xl-5">
-                <div class="col-lg-12">
-                    <div class="alert <c:choose><c:when test="${notiType == 'RED'}">alert-danger</c:when><c:otherwise>alert-success</c:otherwise></c:choose>">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <strong><%= session.getAttribute("notification")%></strong>
-                        <%session.removeAttribute("notification");%>
-                        <%session.removeAttribute("notiType");%>
+        <c:if test="${notification != null}">
+            <div class="container-fluid mb-3">
+                <div class="row px-xl-5">
+                    <div class="col-lg-12">
+                        <div class="alert <c:choose><c:when test="${notiType == 'RED'}">alert-danger</c:when><c:otherwise>alert-success</c:otherwise></c:choose>">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <strong><%= session.getAttribute("notification")%></strong>
+                            <%session.removeAttribute("notification");%>
+                            <%session.removeAttribute("notiType");%>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <%}%>
+        </c:if>
         <!-- Notification End -->
     </body>
 </html>
