@@ -127,6 +127,27 @@
         $("#shippingText").text(shipping.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + 'đ');
         $("#totalText").text(total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + 'đ');
     });
+
+    //Check out info
+    $(document).ready(function() {
+        $('input[type="checkbox"][id="newaccount"]').change(function() {
+            if ($('input[type="password"]').attr('required')) {
+                $('input[type="password"]').removeAttr('required');
+            } 
+            else {
+                $('input[type="password"]').attr('required','required');
+            }
+        });
+
+        
+        $('input[type="radio"][id="creditCard"]').change(function() {
+            $('input[class="credit-card-info form-control"]').attr('required','required');
+        });
+
+        $('input[type="radio"][id="cod"]').change(function() {
+            $('input[class="credit-card-info form-control"]').removeAttr('required');
+        });
+    });
     
 })(jQuery);
 

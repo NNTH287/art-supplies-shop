@@ -63,7 +63,7 @@
                                 <c:if test="${userId == null}">
                                     <div class="collapse col-md-6 form-group"  id="passwordSection">
                                         <label>Password</label>
-                                        <input name="password" class="form-control" type="password" minlength="8" required>
+                                        <input name="password" class="form-control" type="password" minlength="8">
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <div class="custom-control custom-checkbox">
@@ -80,15 +80,15 @@
                                 <div class="row">
                                     <div class="col-md-12 form-group">
                                         <label>Card Number</label>
-                                        <input class="form-control" type="text" <c:if test="${cardNumber != null}">value="${cardNumber}"</c:if> placeholder="0000000000000000">
+                                        <input class="credit-card-info form-control" type="text" <c:if test="${cardNumber != null}">value="${cardNumber}"</c:if> placeholder="0000000000000000">
                                         </div>
                                         <div class="col-md-6 form-group">
                                             <label>Expiration Date</label>
-                                            <input class="form-control" type="month" <c:if test="${cardNumber != null}">value="${expirationYear}-${expirationDate}"</c:if> placeholder="mm-yy" pattern="[0-9]{2}-[0-9]{2}">
+                                            <input class="credit-card-info form-control" type="month" <c:if test="${cardNumber != null}">value="${expirationYear}-${expirationDate}"</c:if> placeholder="mm-yy" pattern="[0-9]{2}-[0-9]{2}">
                                         </div>
                                         <div class="col-md-6 form-group">
                                             <label>CVV</label>
-                                            <input class="form-control" type="text" <c:if test="${cardNumber != null}">value="${cvv}"</c:if> placeholder="123">
+                                            <input class="credit-card-info form-control" type="text" <c:if test="${cardNumber != null}">value="${cvv}"</c:if> placeholder="123">
                                         </div>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                         <label class="custom-control-label" for="cod">Cash On Delivery</label>
                                     </div>
                                 </div>
-                                <button class="btn btn-block btn-primary font-weight-bold py-3" onclick="this.form.submit()">Place Order</button>
+                                <input type="submit" class="btn btn-block btn-primary font-weight-bold py-3" value="Place Order">
                             </div>
                         </div>
                     </div>

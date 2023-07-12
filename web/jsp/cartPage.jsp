@@ -35,7 +35,7 @@
 
 
         <!-- Cart Start -->
-        <form action="checkout">
+        <form action="checkout" method="GET">
             <div class="container-fluid">
                 <c:choose>
                     <c:when test="${cart.getItems().size() == 0}">
