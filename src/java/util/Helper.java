@@ -2,6 +2,7 @@ package util;
 
 import dao.BrandDAO;
 import dao.CategoryDAO;
+import dao.UserDAO;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Comparator;
 import java.util.Hashtable;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.Vector;
 import model.Brand;
 import model.Category;
+import model.User;
 
 public class Helper {
 
@@ -85,5 +87,20 @@ public class Helper {
                 .forEachOrdered(e -> brands.put(e.getKey(), e.getValue()));
         
         request.setAttribute("brands", brands);
+    }
+    
+    public static boolean createAccount(HttpServletRequest request, String role) {
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String street = request.getParameter("street");
+        String city = request.getParameter("city");
+        String province = request.getParameter("province");
+        String country = request.getParameter("country");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String phone = request.getParameter("phone");
+        User user = new User(role, firstName, lastName, street, city, province, country, email, password, phone);
+        UserDAO udao = new UserDAO();
+        return udao.addUser(user) == 1;
     }
 }

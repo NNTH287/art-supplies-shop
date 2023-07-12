@@ -71,19 +71,7 @@ public class SignupController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String role = "Customer";
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        String street = request.getParameter("street");
-        String city = request.getParameter("city");
-        String province = request.getParameter("province");
-        String country = request.getParameter("country");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String phone = request.getParameter("phone");
-        User user = new User(role, firstName, lastName, street, city, province, country, email, password, phone);
-        UserDAO udao = new UserDAO();
-        boolean success = udao.addUser(user) == 1;
-        if (success) {
+        if (Helper.createAccount(request, role)) {
             HttpSession session = request.getSession();
             session.setAttribute("notification", "Sign up success! Please login to your account");
             response.sendRedirect("login");
