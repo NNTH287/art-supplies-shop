@@ -78,7 +78,7 @@
                                                                     <i class="fa fa-minus"></i>
                                                                 </button>
                                                             </div>
-                                                            <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="${cartItem.quantity}">
+                                                            <input name="quantityToBuy" id="quantityToBuy" type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="${cartItem.quantity}">
                                                         <div class="input-group-btn">
                                                             <button type="button" class="btn btn-sm btn-primary btn-plus">
                                                                 <i class="fa fa-plus"></i>

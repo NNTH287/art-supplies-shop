@@ -97,7 +97,9 @@
                 newVal = 0;
             }
         }
-        button.parent().parent().parent().find('input').val(newVal);
+        // button.parent().parent().parent().find('input').val(newVal);
+        // $('#quantityToBuy').val(newVal);
+        button.parent().parent().parent().find('input[name="quantityToBuy"]').val(newVal)
 
         if (newVal == 0) {
             button.closest("tr").remove();
