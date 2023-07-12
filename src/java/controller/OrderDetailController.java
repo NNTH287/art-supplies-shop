@@ -53,17 +53,21 @@ public class OrderDetailController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         HttpSession session = request.getSession();
-        int userId = (Integer) session.getAttribute("userId");
-        int orderId = Integer.parseInt(request.getParameter("orderId"));
-        OrderDAO odao = new OrderDAO();
-        if (!odao.isOrderedBy(userId, orderId)) {
-            response.sendRedirect("404");
-        } else {
-            OrderDetailDAO oddao = new OrderDetailDAO();
-            Vector<OrderDetail> orderDetails = oddao.getByOrderId(orderId);
-            
-            request.setAttribute("orderDetails", orderDetails);
+        if (session.getAttribute("userId") == null) {
             request.getRequestDispatcher("/jsp/orderDetailPage.jsp").forward(request, response);
+        } else {
+            int userId = (Integer) session.getAttribute("userId");
+            int orderId = Integer.parseInt(request.getParameter("orderId"));
+            OrderDAO odao = new OrderDAO();
+            if (!odao.isOrderedBy(userId, orderId)) {
+                response.sendRedirect("404");
+            } else {
+                OrderDetailDAO oddao = new OrderDetailDAO();
+                Vector<OrderDetail> orderDetails = oddao.getByOrderId(orderId);
+
+                request.setAttribute("orderDetails", orderDetails);
+                request.getRequestDispatcher("/jsp/orderDetailPage.jsp").forward(request, response);
+            }
         }
     } 
 
