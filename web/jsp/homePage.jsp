@@ -36,7 +36,7 @@
                                     <div class="p-3" style="max-width: 700px;">
                                         <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Drawing Paper</h1>
                                         <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Special paper for drawing with great thickness. Suitable for many types of color, especially watercolor.</p>
-                                        <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="shop?cateId=6">Shop Now</a>
+                                        <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="${pageContext.request.contextPath}/shop?cateId=6">Shop Now</a>
                                     </div>
                                 </div>
                             </div>
@@ -46,7 +46,7 @@
                                     <div class="p-3" style="max-width: 700px;">
                                         <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Drawing Paint</h1>
                                         <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Color belongs to the segment of high-class artist. The color is produced based on the traditional color formula.</p>
-                                        <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="shop?cateId=5">Shop Now</a>
+                                        <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="${pageContext.request.contextPath}/shop?cateId=5">Shop Now</a>
                                     </div>
                                 </div>
                             </div>
@@ -56,7 +56,7 @@
                                     <div class="p-3" style="max-width: 700px;">
                                         <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Drawing Brushes</h1>
                                         <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Brushes that artists specialize in drawing comics, bringing, etc. Suitable for many types of purpose.</p>
-                                        <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="shop?cateId=4">Shop Now</a>
+                                        <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="${pageContext.request.contextPath}/shop?cateId=4">Shop Now</a>
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +69,7 @@
                         <div class="offer-text">
                             <h6 class="text-white text-uppercase">Save 25%</h6>
                             <h3 class="text-white mb-3">Special Offer</h3>
-                            <a href="shop?sale=" class="btn btn-primary">Shop Now</a>
+                            <a href="${pageContext.request.contextPath}/shop?sale=" class="btn btn-primary">Shop Now</a>
                         </div>
                     </div>
                     <div class="product-offer mb-30" style="height: 200px;">

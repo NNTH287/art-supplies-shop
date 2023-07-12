@@ -45,7 +45,7 @@
                            ">You havn't login yet!</p>
                     </div>
                 </c:when>
-                <c:when test="${orders == null}">
+                <c:when test="${orders == null || orders.size() == 0}">
                     <div class="col-12 pb-1">
                         <p style="
                            text-align: center;
@@ -77,7 +77,7 @@
                                             <td class="align-middle">${orderDetail.id}</td>
                                             <td class="align-middle container-fluid" style="display: flex; align-items: center;">
                                                 <img src="img/product-${orderDetail.productId}.jpg" alt="" style="width: 50px;">
-                                                <a href="details?proId=${orderDetail.productId}" title="${orderDetail.productName}" class="product-name-in-cart text-truncate ml-2"> ${orderDetail.productName}
+                                                <a href="${pageContext.request.contextPath}/details?proId=${orderDetail.productId}" title="${orderDetail.productName}" class="product-name-in-cart text-truncate ml-2"> ${orderDetail.productName}
                                                 </a>
                                             </td>
                                             <td class="align-middle"><fmt:formatNumber type="currency" pattern="###,###¤">${orderDetail.price}</fmt:formatNumber></td>

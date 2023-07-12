@@ -82,7 +82,13 @@ public class LoginController extends HttpServlet {
             if (user.getPassword().equals(password)) {
                 HttpSession session = request.getSession();
                 session.setAttribute("userId", user.getId());
-                response.sendRedirect("home");
+                if (user.getRole().equals("Admin")) {
+                    session.setAttribute("adminUser", user.getId());
+                    response.sendRedirect("admin/home");
+                } else {
+                    session.setAttribute("customerUser", user.getId());
+                    response.sendRedirect("home");
+                }
             } else {
                 HttpSession session = request.getSession();
                 session.setAttribute("notiType", "RED");

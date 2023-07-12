@@ -1,22 +1,17 @@
-package controller;
+package controller.admin;
 
-import dao.OrderDAO;
-import dao.OrderDetailDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.Vector;
-import model.OrderDetail;
 
 /**
  *
  * @author Huy Nguyen
  */
-public class OrderDetailController extends HttpServlet {
+public class AdminHomeController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,10 +28,10 @@ public class OrderDetailController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet OrderDetailController</title>");  
+            out.println("<title>Servlet AdminHomeController</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet OrderDetailController at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet AdminHomeController at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -52,23 +47,7 @@ public class OrderDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if (session.getAttribute("userId") == null) {
-            request.getRequestDispatcher("/jsp/orderDetailPage.jsp").forward(request, response);
-        } else {
-            int userId = (Integer) session.getAttribute("userId");
-            int orderId = Integer.parseInt(request.getParameter("orderId"));
-            OrderDAO odao = new OrderDAO();
-            if (!odao.isOrderedBy(userId, orderId)) {
-                request.getRequestDispatcher("/jsp/orderDetailPage.jsp").forward(request, response);
-            } else {
-                OrderDetailDAO oddao = new OrderDetailDAO();
-                Vector<OrderDetail> orderDetails = oddao.getByOrderId(orderId);
-
-                request.setAttribute("orderDetails", orderDetails);
-                request.getRequestDispatcher("/jsp/orderDetailPage.jsp").forward(request, response);
-            }
-        }
+        request.getRequestDispatcher("/jsp/adminHomePage.jsp").forward(request, response);
     } 
 
     /** 

@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <filter>
+        <filter-name>AdminAuthenticationFilter</filter-name>
+        <filter-class>filter.AdminAuthenticationFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>CustomerAuthenticationFilter</filter-name>
+        <filter-class>filter.CustomerAuthenticationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CustomerAuthenticationFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminAuthenticationFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>HomeController</servlet-name>
         <servlet-class>controller.HomeController</servlet-class>
@@ -47,6 +63,10 @@
     <servlet>
         <servlet-name>OrderDetailController</servlet-name>
         <servlet-class>controller.OrderDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminHomeController</servlet-name>
+        <servlet-class>controller.admin.AdminHomeController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
@@ -96,13 +116,17 @@
         <servlet-name>OrderDetailController</servlet-name>
         <url-pattern>/order-detail</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminHomeController</servlet-name>
+        <url-pattern>/admin/home</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    <error-page>
+    <!--        <error-page>
         <error-code>404</error-code>
         <location>/404</location>
-    </error-page>
+    </error-page>-->
 </web-app>

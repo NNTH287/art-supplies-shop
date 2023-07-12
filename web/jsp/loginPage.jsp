@@ -35,7 +35,7 @@
         <link href="${pageContext.request.contextPath}/css/loginStyle.css?version=1" rel="stylesheet">
     </head>
     <div class="wrapper">
-        <form action="login" class="login" method="POST">
+        <form action="${pageContext.request.contextPath}/login" class="login" method="POST">
             <p class="title">Log in</p>
             
             <c:if test="${notification != null}">

@@ -18,7 +18,7 @@
 
     <body>
         <%@include file="header.jsp" %>
-        
+
         <!-- Breadcrumb Start -->
         <div class="container-fluid">
             <div class="row px-xl-5">
@@ -92,9 +92,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <!--<a href="add-to-cart?proId=${product.id}">-->
                             <button type="submit" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i>Add To Cart</button>
-                            <!--</a>-->
                         </form>
                     </div>
                 </div>
@@ -182,13 +180,13 @@
                                 <div class="product-img position-relative overflow-hidden">
                                     <img class="img-fluid w-100" src="img/product-${relate.id}.jpg" alt="">
                                     <div class="product-action">
-                                        <a title="Add to cart" class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                                        <a title="Add to favorite" class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                                        <a title="See details" class="btn btn-outline-dark btn-square" href="details?proId=${relate.id}"><i class="fa fa-search"></i></a>
+                                        <a title="Add to cart" class="btn btn-outline-dark btn-square" href="${pageContext.request.contextPath}/add-to-cart?proId=${pro.id}"><i class="fa fa-shopping-cart"></i></a>
+                                        <a title="Add to favorite" class="btn btn-outline-dark btn-square" href="${pageContext.request.contextPath}/add-to-favorite"><i class="far fa-heart"></i></a>
+                                        <a title="See details" class="btn btn-outline-dark btn-square" href="${pageContext.request.contextPath}/details?proId=${relate.id}"><i class="fa fa-search"></i></a>
                                     </div>
                                 </div>
                                 <div class="text-center py-4">
-                                    <a class="h6 text-decoration-none text-truncate" href="details?proId=${relate.id}">${relate.name}</a>
+                                    <a class="h6 text-decoration-none text-truncate" href="${pageContext.request.contextPath}/details?proId=${relate.id}">${relate.name}</a>
                                     <div class="d-flex align-items-center justify-content-center mt-2">
                                         <c:set var="currentPrice" value="${relate.price * (1-relate.discount)}"/>
                                         <fmt:setLocale value="vi_VN"/>

@@ -67,7 +67,7 @@
                                             <tr>
                                                 <td class="align-middle container-fluid" style="display: flex; align-items: center;">
                                                     <img src="img/product-${cartItem.productId}.jpg" alt="" style="width: 50px;">
-                                                    <a href="details?proId=${cartItem.productId}" title="${cartItem.productName}" class="product-name-in-cart text-truncate ml-2"> ${cartItem.productName}
+                                                    <a href="${pageContext.request.contextPath}/details?proId=${cartItem.productId}" title="${cartItem.productName}" class="product-name-in-cart text-truncate ml-2"> ${cartItem.productName}
                                                     </a>
                                                 </td>
                                                 <td class="align-middle"><fmt:formatNumber type="currency" pattern="###,###¤">${cartItem.price}</fmt:formatNumber></td>
