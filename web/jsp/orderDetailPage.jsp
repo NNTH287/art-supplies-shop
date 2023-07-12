@@ -1,6 +1,6 @@
 <%-- 
-    Document   : orderPage
-    Created on : Jul 11, 2023, 4:19:57 PM
+    Document   : orderDetailPage
+    Created on : Jul 12, 2023, 10:16:01 AM
     Author     : Huy Nguyen
 --%>
 
@@ -55,31 +55,24 @@
                     </div>
                 </c:when>
                 <c:otherwise>
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Details Of Order ${orderDetails.get(0).orderId}</span></h5>
                     <div class="row px-xl-5">
                         <table class="table table-light table-borderless table-hover text-center mb-0">
                             <thead class="thead-dark">
                                 <tr>
                                     <th>ID</th>
-                                    <th>Receiver</th>
-                                    <th>Ship Address</th>
-                                    <th>Contact Email</th>
-                                    <th>Contact Phone</th>
-                                    <th>Created Time</th>
-                                    <th>Status</th>
-                                    <th>View</th>
+                                    <th>Product Name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
                                 </tr>
                             </thead>
                             <tbody class="align-middle">
-                                <c:forEach items="${orders}" var="order">
+                                <c:forEach items="${orderDetails}" var="orderDetail">
                                     <tr>
-                                        <td class="align-middle">${order.id}</td>
-                                        <td class="align-middle">${order.receiver}</td>
-                                        <td class="align-middle">${order.shipStreet}, ${order.shipCity}, ${order.shipProvince}, ${order.shipCountry}</td>
-                                        <td class="align-middle">${order.shipEmail}</td>
-                                        <td class="align-middle">${order.shipPhone}</td>
-                                        <td class="align-middle">${order.createdTime}</td>
-                                        <td class="align-middle">${order.status}</td>
-                                        <td class="align-middle"><a class="text-dark" href="order-detail?orderId=${order.id}">Details</a></td>
+                                        <td class="align-middle">${orderDetail.id}</td>
+                                        <td class="align-middle">${orderDetail.productName}</td>
+                                        <td class="align-middle">${orderDetail.price}</td>
+                                        <td class="align-middle">${orderDetail.quantity}</td>
                                     </tr>
                                 </c:forEach>
                             </tbody>

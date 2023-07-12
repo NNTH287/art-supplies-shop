@@ -10,6 +10,23 @@ import java.util.logging.Logger;
 import model.Order;
 
 public class OrderDAO extends jdbc.DBConnect {
+    public boolean isOrderedBy(int userId, int orderId) {
+        boolean isOrderedByUser = false;
+        String sql = "SELECT [id]\n"
+                + "  FROM [dbo].[Order]\n"
+                + "  where userId = ? and id = ?";
+        try {
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, userId);
+            statement.setInt(2, orderId);
+            ResultSet rs = statement.executeQuery();
+            isOrderedByUser = rs.isBeforeFirst();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return isOrderedByUser;
+    }
+    
     public Vector<Order> getByUserId(int userId) {
         Vector<Order> orders = new Vector<>();
         String sql = "SELECT [id]\n"
@@ -133,9 +150,10 @@ public class OrderDAO extends jdbc.DBConnect {
 
     public static void main(String[] args) {
         OrderDAO odao = new OrderDAO();
-        Vector<Order> orders = odao.getByUserId(2);
-        for (Order order : orders) {
-            System.out.println(order);
-        }
+//        Vector<Order> orders = odao.getByUserId(2);
+//        for (Order order : orders) {
+//            System.out.println(order);
+//        }
+        System.out.println(odao.isOrderedBy(1, 1));
     }
 }
