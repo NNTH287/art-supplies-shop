@@ -130,7 +130,7 @@
 
     //Check out info
     $(document).ready(function() {
-        $('input[type="checkbox"][id="newaccount"]').change(function() {
+        $('input[type="checkbox"][id="newAccount"]').change(function() {
             if ($('input[type="password"]').attr('required')) {
                 $('input[type="password"]').removeAttr('required');
             } 

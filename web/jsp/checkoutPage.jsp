@@ -67,8 +67,8 @@
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="newaccount">
-                                            <label class="custom-control-label" for="newaccount" data-toggle="collapse" data-target="#passwordSection">Create an account</label>
+                                            <input type="checkbox" class="custom-control-input" id="newAccount">
+                                            <label class="custom-control-label" for="newAccount" data-toggle="collapse" data-target="#passwordSection">Create an account</label>
                                         </div>
                                     </div>
                                 </c:if>
