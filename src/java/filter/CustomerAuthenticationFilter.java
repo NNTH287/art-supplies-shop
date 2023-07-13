@@ -65,10 +65,8 @@ public class CustomerAuthenticationFilter implements Filter {
         if (!isLoggedIn && isLoginRequired()) {
             // the user is not logged in, and the requested page requires
             // authentication, then forward to the login page
-            System.out.println("login required");
             httpResponse.sendRedirect("login");
         } else {
-            System.out.println("no need to login");
             // for other requested pages that do not require authentication
             // or the user is already logged in, continue to the destination
             chain.doFilter(request, response);
