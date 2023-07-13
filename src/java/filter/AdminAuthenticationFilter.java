@@ -12,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 /**
@@ -28,8 +29,8 @@ public class AdminAuthenticationFilter implements Filter {
     private FilterConfig filterConfig = null;
 
     public AdminAuthenticationFilter() {
-    } 
-    
+    }
+
     /**
      *
      * @param request The servlet request we are processing
@@ -40,39 +41,33 @@ public class AdminAuthenticationFilter implements Filter {
      * @exception ServletException if a servlet error occurs
      */
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-	throws IOException, ServletException {
-        
+            throws IOException, ServletException {
+
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpSession session = httpRequest.getSession(false);
         boolean isLoggedIn = (session != null && session.getAttribute("adminUser") != null);
         String loginURI = httpRequest.getContextPath() + "/admin/login";
         boolean isLoginRequest = httpRequest.getRequestURI().equals(loginURI);
-        boolean isLoginPage = httpRequest.getRequestURI().endsWith("login");
- 
-        if (isLoggedIn && (isLoginRequest || isLoginPage)) {
-            // the admin is already logged in and he's trying to login again
-            // then forwards to the admin's homepage
-            request.getRequestDispatcher("/admin/home").forward(request, response);
-        } else if (isLoggedIn || isLoginRequest) {
+
+        if (isLoggedIn || isLoginRequest) {
             // continues the filter chain allows the request to reach the destination
             chain.doFilter(request, response);
         } else {
-            // Authentication is required forwards to the Login page
             request.getRequestDispatcher("/login").forward(request, response);
- 
         }
     }
 
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
-	throws IOException, ServletException {
-	if (debug) log("AdminAuthenticationFilter:DoBeforeProcessing");
+            throws IOException, ServletException {
+        if (debug) {
+            log("AdminAuthenticationFilter:DoBeforeProcessing");
+        }
 
-	// Write code here to process the request and/or response before
-	// the rest of the filter chain is invoked.
-
-	// For example, a logging filter might log items on the request object,
-	// such as the parameters.
-	/*
+        // Write code here to process the request and/or response before
+        // the rest of the filter chain is invoked.
+        // For example, a logging filter might log items on the request object,
+        // such as the parameters.
+        /*
 	for (Enumeration en = request.getParameterNames(); en.hasMoreElements(); ) {
 	    String name = (String)en.nextElement();
 	    String values[] = request.getParameterValues(name);
@@ -87,39 +82,39 @@ public class AdminAuthenticationFilter implements Filter {
 	    }
 	    log(buf.toString());
 	}
-	*/
-    } 
+         */
+    }
 
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
-	throws IOException, ServletException {
-	if (debug) log("AdminAuthenticationFilter:DoAfterProcessing");
+            throws IOException, ServletException {
+        if (debug) {
+            log("AdminAuthenticationFilter:DoAfterProcessing");
+        }
 
-	// Write code here to process the request and/or response after
-	// the rest of the filter chain is invoked.
-	
-	// For example, a logging filter might log the attributes on the
-	// request object after the request has been processed. 
-	/*
+        // Write code here to process the request and/or response after
+        // the rest of the filter chain is invoked.
+        // For example, a logging filter might log the attributes on the
+        // request object after the request has been processed. 
+        /*
 	for (Enumeration en = request.getAttributeNames(); en.hasMoreElements(); ) {
 	    String name = (String)en.nextElement();
 	    Object value = request.getAttribute(name);
 	    log("attribute: " + name + "=" + value.toString());
 
 	}
-	*/
-
-	// For example, a filter might append something to the response.
-	/*
+         */
+        // For example, a filter might append something to the response.
+        /*
 	PrintWriter respOut = new PrintWriter(response.getWriter());
 	respOut.println("<P><B>This has been appended by an intrusive filter.</B>");
-	*/
+         */
     }
-    
+
     /**
      * Return the filter configuration object for this filter.
      */
     public FilterConfig getFilterConfig() {
-	return (this.filterConfig);
+        return (this.filterConfig);
     }
 
     /**
@@ -128,25 +123,25 @@ public class AdminAuthenticationFilter implements Filter {
      * @param filterConfig The filter configuration object
      */
     public void setFilterConfig(FilterConfig filterConfig) {
-	this.filterConfig = filterConfig;
+        this.filterConfig = filterConfig;
     }
 
     /**
-     * Destroy method for this filter 
+     * Destroy method for this filter
      */
-    public void destroy() { 
+    public void destroy() {
     }
 
     /**
-     * Init method for this filter 
+     * Init method for this filter
      */
-    public void init(FilterConfig filterConfig) { 
-	this.filterConfig = filterConfig;
-	if (filterConfig != null) {
-	    if (debug) { 
-		log("AdminAuthenticationFilter:Initializing filter");
-	    }
-	}
+    public void init(FilterConfig filterConfig) {
+        this.filterConfig = filterConfig;
+        if (filterConfig != null) {
+            if (debug) {
+                log("AdminAuthenticationFilter:Initializing filter");
+            }
+        }
     }
 
     /**
@@ -154,60 +149,61 @@ public class AdminAuthenticationFilter implements Filter {
      */
     @Override
     public String toString() {
-	if (filterConfig == null) return ("AdminAuthenticationFilter()");
-	StringBuffer sb = new StringBuffer("AdminAuthenticationFilter(");
-	sb.append(filterConfig);
-	sb.append(")");
-	return (sb.toString());
+        if (filterConfig == null) {
+            return ("AdminAuthenticationFilter()");
+        }
+        StringBuffer sb = new StringBuffer("AdminAuthenticationFilter(");
+        sb.append(filterConfig);
+        sb.append(")");
+        return (sb.toString());
     }
 
     private void sendProcessingError(Throwable t, ServletResponse response) {
-	String stackTrace = getStackTrace(t); 
+        String stackTrace = getStackTrace(t);
 
-	if(stackTrace != null && !stackTrace.equals("")) {
-	    try {
-		response.setContentType("text/html");
-		PrintStream ps = new PrintStream(response.getOutputStream());
-		PrintWriter pw = new PrintWriter(ps); 
-		pw.print("<html>\n<head>\n<title>Error</title>\n</head>\n<body>\n"); //NOI18N
-		    
-		// PENDING! Localize this for next official release
-		pw.print("<h1>The resource did not process correctly</h1>\n<pre>\n"); 
-		pw.print(stackTrace); 
-		pw.print("</pre></body>\n</html>"); //NOI18N
-		pw.close();
-		ps.close();
-		response.getOutputStream().close();
-	    }
-	    catch(Exception ex) {}
-	}
-	else {
-	    try {
-		PrintStream ps = new PrintStream(response.getOutputStream());
-		t.printStackTrace(ps);
-		ps.close();
-		response.getOutputStream().close();
-	    }
-	    catch(Exception ex) {}
-	}
+        if (stackTrace != null && !stackTrace.equals("")) {
+            try {
+                response.setContentType("text/html");
+                PrintStream ps = new PrintStream(response.getOutputStream());
+                PrintWriter pw = new PrintWriter(ps);
+                pw.print("<html>\n<head>\n<title>Error</title>\n</head>\n<body>\n"); //NOI18N
+
+                // PENDING! Localize this for next official release
+                pw.print("<h1>The resource did not process correctly</h1>\n<pre>\n");
+                pw.print(stackTrace);
+                pw.print("</pre></body>\n</html>"); //NOI18N
+                pw.close();
+                ps.close();
+                response.getOutputStream().close();
+            } catch (Exception ex) {
+            }
+        } else {
+            try {
+                PrintStream ps = new PrintStream(response.getOutputStream());
+                t.printStackTrace(ps);
+                ps.close();
+                response.getOutputStream().close();
+            } catch (Exception ex) {
+            }
+        }
     }
 
     public static String getStackTrace(Throwable t) {
-	String stackTrace = null;
-	try {
-	    StringWriter sw = new StringWriter();
-	    PrintWriter pw = new PrintWriter(sw);
-	    t.printStackTrace(pw);
-	    pw.close();
-	    sw.close();
-	    stackTrace = sw.getBuffer().toString();
-	}
-	catch(Exception ex) {}
-	return stackTrace;
+        String stackTrace = null;
+        try {
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            t.printStackTrace(pw);
+            pw.close();
+            sw.close();
+            stackTrace = sw.getBuffer().toString();
+        } catch (Exception ex) {
+        }
+        return stackTrace;
     }
 
     public void log(String msg) {
-	filterConfig.getServletContext().log(msg); 
+        filterConfig.getServletContext().log(msg);
     }
 
 }

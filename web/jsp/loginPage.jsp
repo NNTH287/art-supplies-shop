@@ -49,7 +49,7 @@
             <i class="fa fa-user"></i>
             <input name="password" type="password" placeholder="Password" />
             <i class="fa fa-key"></i>
-            <a href="signup">Sign Up</a>
+            <a href="${pageContext.request.contextPath}/signup">Sign Up</a>
             <button onclick="this.form.submit()">
                 <i class="spinner"></i>
                 <span class="state">Log in</span>

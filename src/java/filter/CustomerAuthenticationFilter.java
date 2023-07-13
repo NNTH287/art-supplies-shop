@@ -12,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 /**
@@ -27,6 +28,7 @@ public class CustomerAuthenticationFilter implements Filter {
     // configured. 
     private FilterConfig filterConfig = null;
     private HttpServletRequest httpRequest;
+    private HttpServletResponse httpResponse;
     private static final String[] loginRequiredURLs = {
             "/order", "/order-detail"
     };
@@ -48,6 +50,7 @@ public class CustomerAuthenticationFilter implements Filter {
 	throws IOException, ServletException {
 
 	httpRequest = (HttpServletRequest) request;
+        httpResponse = (HttpServletResponse) response;
         
         //Exclude requests coming to the admin section
         String path = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
@@ -58,19 +61,14 @@ public class CustomerAuthenticationFilter implements Filter {
  
         HttpSession session = httpRequest.getSession(false);
         boolean isLoggedIn = (session != null && session.getAttribute("customerUser") != null);
-        String loginURI = httpRequest.getContextPath() + "/login";
-        boolean isLoginRequest = httpRequest.getRequestURI().equals(loginURI);
-        boolean isLoginPage = httpRequest.getRequestURI().endsWith("login");
  
-        if (isLoggedIn && (isLoginRequest || isLoginPage)) {
-            // the user is already logged in and trying to login again
-            // then forward to the homepage
-            httpRequest.getRequestDispatcher("home").forward(request, response);
-        } else if (!isLoggedIn && isLoginRequired()) {
+        if (!isLoggedIn && isLoginRequired()) {
             // the user is not logged in, and the requested page requires
             // authentication, then forward to the login page
-            httpRequest.getRequestDispatcher("login").forward(request, response);
+            System.out.println("login required");
+            httpResponse.sendRedirect("login");
         } else {
+            System.out.println("no need to login");
             // for other requested pages that do not require authentication
             // or the user is already logged in, continue to the destination
             chain.doFilter(request, response);

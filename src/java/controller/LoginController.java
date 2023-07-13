@@ -65,13 +65,12 @@ public class LoginController extends HttpServlet {
     throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        HttpSession session = request.getSession();
         if (username == null || username.equals("")) {
-            HttpSession session = request.getSession();
             session.setAttribute("notiType", "RED");
             session.setAttribute("notification", "Email cannot be blank!");
             doGet(request, response);
         } else if (password == null || password.equals("")){
-            HttpSession session = request.getSession();
             session.setAttribute("notiType", "RED");
             session.setAttribute("notification", "Password cannot be blank!");
             doGet(request, response);
@@ -80,7 +79,11 @@ public class LoginController extends HttpServlet {
         User user = udao.getByEmail(username);
         if (user != null) {
             if (user.getPassword().equals(password)) {
-                HttpSession session = request.getSession();
+                //Reset user infomation
+                session.invalidate();
+                System.out.println("Info removed");
+                //Get new infomation
+                session = request.getSession();
                 session.setAttribute("userId", user.getId());
                 if (user.getRole().equals("Admin")) {
                     session.setAttribute("adminUser", user.getId());
@@ -90,13 +93,11 @@ public class LoginController extends HttpServlet {
                     response.sendRedirect("home");
                 }
             } else {
-                HttpSession session = request.getSession();
                 session.setAttribute("notiType", "RED");
                 session.setAttribute("notification", "Wrong password!");destroy();
                 doGet(request, response);
             }
         } else {
-            HttpSession session = request.getSession();
             session.setAttribute("notiType", "RED");
             session.setAttribute("notification", "User doesn't exists!");
             doGet(request, response);
