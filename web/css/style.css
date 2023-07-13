@@ -3975,7 +3975,6 @@ input[type="button"].btn-block {
 
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
-  color: #fff;
   background-color: #5ec3ff;
 }
 
@@ -9785,4 +9784,14 @@ hr {
 
 hr:not([size]) {
   height: 1px;
+}
+
+.side-bar {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 20%;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
 }

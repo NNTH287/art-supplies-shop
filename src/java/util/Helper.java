@@ -4,6 +4,7 @@ import dao.BrandDAO;
 import dao.CategoryDAO;
 import dao.UserDAO;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import java.util.Comparator;
 import java.util.Hashtable;
 import java.util.LinkedHashMap;
@@ -19,6 +20,12 @@ public class Helper {
      * Block from creating instance
      */
     private Helper() {
+    }
+    
+    public static void setNotification(HttpServletRequest request, String notification, String type) {
+        HttpSession session = request.getSession();
+        session.setAttribute("notiType", type);
+        session.setAttribute("notification", notification);
     }
 
     /**

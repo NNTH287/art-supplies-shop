@@ -81,15 +81,16 @@ public class LoginController extends HttpServlet {
             if (user.getPassword().equals(password)) {
                 //Reset user infomation
                 session.invalidate();
-                System.out.println("Info removed");
                 //Get new infomation
                 session = request.getSession();
                 session.setAttribute("userId", user.getId());
                 if (user.getRole().equals("Admin")) {
                     session.setAttribute("adminUser", user.getId());
+                    session.setAttribute("adminName", user.getFirstName() + " " + user.getLastName());
                     response.sendRedirect("admin/home");
                 } else {
                     session.setAttribute("customerUser", user.getId());
+                    session.setAttribute("customerName", user.getFirstName() + " " + user.getLastName());
                     response.sendRedirect("home");
                 }
             } else {

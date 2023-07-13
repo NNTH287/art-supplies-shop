@@ -63,25 +63,10 @@ CREATE TABLE [Brand] (
 )
 GO
 
-CREATE TABLE [ProductReview] (
-  [userId] int NOT NULL,
-  [productId] int NOT NULL,
-  [content] nvarchar(2000),
-  PRIMARY KEY ([userId], [productId])
-)
-GO
-
-CREATE TABLE [Favorite] (
-  [userId] int NOT NULL,
-  [productId] int NOT NULL,
-  PRIMARY KEY ([userId], [productId])
-)
-GO
-
 CREATE TABLE [Order] (
   [id] int PRIMARY KEY NOT NULL IDENTITY(1, 1),
   [userId] int NOT NULL,
-  [receiver] nvarchar(50),
+  [shipTo] nvarchar(50),
   [shipStreet] varchar(50),
   [shipCity] varchar(30),
   [shipProvince] varchar(30),
@@ -131,18 +116,6 @@ ALTER TABLE [Product] ADD FOREIGN KEY ([categoryId]) REFERENCES [Category] ([id]
 GO
 
 ALTER TABLE [Product] ADD FOREIGN KEY ([brandId]) REFERENCES [Brand] ([id])
-GO
-
-ALTER TABLE [ProductReview] ADD FOREIGN KEY ([userId]) REFERENCES [User] ([id])
-GO
-
-ALTER TABLE [ProductReview] ADD FOREIGN KEY ([productId]) REFERENCES [Product] ([id])
-GO
-
-ALTER TABLE [Favorite] ADD FOREIGN KEY ([userId]) REFERENCES [User] ([id])
-GO
-
-ALTER TABLE [Favorite] ADD FOREIGN KEY ([productId]) REFERENCES [Product] ([id])
 GO
 
 ALTER TABLE [Order] ADD FOREIGN KEY ([userId]) REFERENCES [User] ([id])

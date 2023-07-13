@@ -68,6 +68,10 @@
         <servlet-name>AdminHomeController</servlet-name>
         <servlet-class>controller.admin.AdminHomeController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminCustomerManagerController</servlet-name>
+        <servlet-class>controller.admin.AdminCustomerManagerController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -119,6 +123,10 @@
     <servlet-mapping>
         <servlet-name>AdminHomeController</servlet-name>
         <url-pattern>/admin/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminCustomerManagerController</servlet-name>
+        <url-pattern>/admin/customer-manager</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -37,7 +37,7 @@
         <div class="container-fluid">
             <div class="row align-items-center bg-light py-3 px-xl-5 d-lg-flex">
                 <div class="col-lg-4 d-xs-none d-sm-none d-lg-block">
-                    <a href="http://localhost:8080/ArtSuppliesShop/home" class="text-decoration-none">
+                    <a href="${pageContext.request.contextPath}/home" class="text-decoration-none">
                         <span class="h1 text-primary bg-dark px-2">Elj</span>
                         <span class="h1 text-dark bg-primary px-2 ml-n1">Shop</span>
                     </a>

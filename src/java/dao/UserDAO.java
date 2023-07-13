@@ -11,7 +11,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class UserDAO extends jdbc.DBConnect {
-    public ResultSet getAll() {
+    public Vector<User> getAll() {
+        Vector<User> users = new Vector<>();
         String sql = "SELECT [id]\n"
                 + "      ,[role]\n"
                 + "      ,[firstName]\n"
@@ -19,13 +20,31 @@ public class UserDAO extends jdbc.DBConnect {
                 + "      ,[street]\n"
                 + "      ,[city]\n"
                 + "      ,[province]\n"
-                + "      ,[country]"
+                + "      ,[country]\n"
                 + "      ,[email]\n"
                 + "      ,[password]\n"
-                + "      ,[phone]\n"
+                + "      ,[phone]"
                 + "  FROM [dbo].[User]";
-        ResultSet rs = getData(sql);
-        return rs;
+        try {
+            ResultSet rs = getData(sql);
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String role = rs.getString(2);
+                String firstName = rs.getString(3);
+                String lastName = rs.getString(4);
+                String street = rs.getString(5);
+                String city = rs.getString(6);
+                String province = rs.getString(7);
+                String country = rs.getString(8);
+                String email = rs.getString(9);
+                String password = rs.getString(10);
+                String phone = rs.getString(11);
+                users.add(new User(id, role, firstName, lastName, street, city, province, country, email, password, phone));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return users;
     }
 
     public User getById(int id) {
@@ -60,9 +79,49 @@ public class UserDAO extends jdbc.DBConnect {
                 return new User(id, role, firstName, lastName, street, city, province, country, email, password, phone);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public Vector<User> getByName(String name) {
+        Vector<User> users = new Vector<>();
+        String sql = "SELECT [id]\n"
+                + "      ,[role]\n"
+                + "      ,[firstName]\n"
+                + "      ,[lastName]\n"
+                + "      ,[street]\n"
+                + "      ,[city]\n"
+                + "      ,[province]\n"
+                + "      ,[country]\n"
+                + "      ,[email]\n"
+                + "      ,[password]\n"
+                + "      ,[phone]"
+                + "  FROM [dbo].[User]"
+                + " where firstName like ? or lastName like ?";
+        try {
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, "%" + name + "%");
+            statement.setString(2, "%" + name + "%");
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String role = rs.getString(2);
+                String firstName = rs.getString(3);
+                String lastName = rs.getString(4);
+                String street = rs.getString(5);
+                String city = rs.getString(6);
+                String province = rs.getString(7);
+                String country = rs.getString(8);
+                String email = rs.getString(9);
+                String password = rs.getString(10);
+                String phone = rs.getString(11);
+                users.add(new User(id, role, firstName, lastName, street, city, province, country, email, password, phone));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return users;
     }
 
     public Vector<String> getPaymentInfo(int userId, int paymentId) {
@@ -84,7 +143,7 @@ public class UserDAO extends jdbc.DBConnect {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return paymentInfo;
     }
@@ -120,7 +179,7 @@ public class UserDAO extends jdbc.DBConnect {
                 return new User(id, role, firstName, lastName, street, city, province, country, email, password, phone);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -187,7 +246,7 @@ public class UserDAO extends jdbc.DBConnect {
             pre.setString(8, user.getEmail());
             pre.setString(9, user.getPassword());
             pre.setString(10, user.getPhone());
-            
+
             int affectedRows = pre.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Adding user failed, no rows affected.");
@@ -205,7 +264,42 @@ public class UserDAO extends jdbc.DBConnect {
 
         return userId;
     }
-    
+
+    public int updateUser(User user) {
+        int rowsAffected = 0;
+        String sql = "UPDATE [dbo].[User]\n"
+                + "   SET [role] = ?\n"
+                + "      ,[firstName] = ?\n"
+                + "      ,[lastName] = ?\n"
+                + "      ,[street] = ?\n"
+                + "      ,[city] = ?\n"
+                + "      ,[province] = ?\n"
+                + "      ,[country] = ?\n"
+                + "      ,[email] = ?\n"
+                + "      ,[password] = ?\n"
+                + "      ,[phone] = ?\n"
+                + " WHERE id = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, user.getRole());
+            pre.setString(2, user.getFirstName());
+            pre.setString(3, user.getLastName());
+            pre.setString(4, user.getStreet());
+            pre.setString(5, user.getCity());
+            pre.setString(6, user.getProvince());
+            pre.setString(7, user.getCountry());
+            pre.setString(8, user.getEmail());
+            pre.setString(9, user.getPassword());
+            pre.setString(10, user.getPhone());
+            pre.setInt(11, user.getId());
+            int affectedRows = pre.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return rowsAffected;
+    }
+
     public static void main(String[] args) {
         UserDAO dao = new UserDAO();
         Vector<String> v = dao.getPaymentInfo(1, 1);
