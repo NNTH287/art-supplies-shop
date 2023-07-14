@@ -82,9 +82,13 @@ public class AdminCustomerManagerController extends HttpServlet {
             } else {
                 UserDAO udao = new UserDAO();
                 int userId = Integer.parseInt(request.getParameter("id"));
-                User userToDelete = udao.getById(userId);
-                udao.deleteUser(userToDelete);
-                
+                HttpSession session = request.getSession();
+                if (userId == (Integer)session.getAttribute("adminUser")) {
+                    Helper.setNotification(request, "You cannot delete your-self!", "RED");
+                } else {
+                    User userToDelete = udao.getById(userId);
+                    udao.deleteUser(userToDelete);
+                }
                 response.sendRedirect("customer-manager");
             }
         }
