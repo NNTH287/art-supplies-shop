@@ -40,7 +40,7 @@ public class ProductDAO extends jdbc.DBConnect {
         }
         return product;
     }
-    
+
     public Vector<Product> getAll() {
         Vector<Product> products = new Vector<>();
         String sql = "SELECT [id]\n"
@@ -116,7 +116,7 @@ public class ProductDAO extends jdbc.DBConnect {
                 + "      ,[quantity]\n"
                 + "  FROM [dbo].[Product]\n"
                 + "  where categoryId in (" + (cateId == -1 ? "select id from Category" : "?") + ")\n"
-                + "	and brandId in ("  + (braId == -1 ? "select id from Brand" : "?") + ")\n"
+                + "	and brandId in (" + (braId == -1 ? "select id from Brand" : "?") + ")\n"
                 + "	and price between ? and ?"
                 + (sale.endsWith("ON_SALE") ? "     and discount > 0" : "");
         try {
@@ -191,8 +191,52 @@ public class ProductDAO extends jdbc.DBConnect {
             Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return relatedProducts;
-    } 
-    
+    }
+
+    public int updateProduct(Product product) {
+        int rowsAffected = 0;
+        String sql = "UPDATE [dbo].[Product]\n"
+                + "   SET [categoryId] = ?\n"
+                + "      ,[brandId] = ?\n"
+                + "      ,[name] = ?\n"
+                + "      ,[description] = ?\n"
+                + "      ,[price] = ?\n"
+                + "      ,[discount] = ?\n"
+                + "      ,[quantity] = ?"
+                + " WHERE id = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setInt(1, product.getCategoryId());
+            pre.setInt(2, product.getBrandId());
+            pre.setString(3, product.getName());
+            pre.setString(4, product.getDescription());
+            pre.setDouble(5, product.getPrice());
+            pre.setDouble(6, product.getDiscount());
+            pre.setInt(7, product.getQuantity());
+            pre.setInt(8, product.getId());
+            int affectedRows = pre.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return rowsAffected;
+    }
+
+    public int deleteProduct(Product product) {
+        int rowsAffected = 0;
+        String sql = "DELETE FROM [dbo].[Product]\n"
+                + " WHERE id = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setInt(1, product.getId());
+            int affectedRows = pre.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return rowsAffected;
+    }
+
     public static void main(String[] args) {
 //        ProductDAO dao = new ProductDAO();
 //

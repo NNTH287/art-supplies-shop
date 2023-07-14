@@ -61,7 +61,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link">
+                        <a href="product-manager?go=displayAll" class="nav-link">
                             Product Manager
                         </a>
                     </li>

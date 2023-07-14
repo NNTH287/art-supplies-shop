@@ -51,7 +51,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="customer-manager?go=displayAll" class="nav-link active">
+                        <a href="customer-manager?go=displayAll" class="nav-link">
                             Customer Manager
                         </a>
                     </li>
@@ -61,7 +61,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="product-manager?go=displayAll" class="nav-link">
+                        <a href="product-manager?go=displayAll" class="nav-link active">
                             Product Manager
                         </a>
                     </li>
@@ -83,11 +83,11 @@
                         <div class="col-4">
                         </div>
                         <div class="col-4 text-center">
-                            <form action="customer-manager" method="POST">
+                            <form action="product-manager" method="POST">
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="searchName" placeholder="Search by name">
                                     <div class="input-group-append">
-                                        <button type="submit" class="input-group-text bg-transparent text-primary" title="Search" name="adminSearchCustomerSubmit">
+                                        <button type="submit" class="input-group-text bg-transparent text-primary" title="Search" name="adminSearchProductSubmit">
                                             <i class="fa fa-search"></i>
                                         </button>
                                     </div>
@@ -100,75 +100,79 @@
                     <%@include file="notification.jsp" %>
                     <c:choose>
                         <c:when test="${param.go == null || param.go == 'displayAll'}">
-                            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">List Of Customers</span></h5>
+                            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">List Of Products</span></h5>
                             <table class="table table-light table-borderless table-hover text-center mb-0">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th>ID</th>
-                                        <th>Role</th>
+                                        <th>Category</th>
+                                        <th>Brand</th>
                                         <th>Name</th>
-                                        <th>Address</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
+                                        <th>Price</th>
+                                        <th>Discount</th>
+                                        <th>Quantity Remain</th>
                                         <th>Update</th>
                                         <th>Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody class="align-middle">
-                                    <c:forEach items="${users}" var="user">
+                                    <fmt:setLocale value="vi_VN"/>
+                                    <c:forEach items="${products}" var="product">
                                         <tr>
-                                            <td class="align-middle">${user.id}</td>
-                                            <td class="align-middle">${user.role}</td>
-                                            <td class="align-middle text-left" style="text-wrap: nowrap;">${user.firstName} ${user.lastName}</td>
-                                            <td class="align-middle text-left">${user.street}, ${user.city}, ${user.province}, ${user.country}</td>
-                                            <td class="align-middle">${user.email}</td>
-                                            <td class="align-middle">${user.phone}</td>
-                                            <td class="align-middle"><a class="product-name-in-cart" href="customer-manager?go=update&id=${user.id}">Update</a></td>
-                                            <td class="align-middle"><a class="product-name-in-cart" href="customer-manager?go=delete&id=${user.id}">Delete</a></td>
+                                            <td class="align-middle">${product.id}</td>
+                                            <td class="align-middle">${categories[product.categoryId-1].name}</td>
+                                            <td class="align-middle">${brands[product.brandId-1].name}</td>
+                                            <td class="align-middle text-left">${product.name}</td>
+                                            <td class="align-middle text-left"><fmt:formatNumber type="currency" pattern="###,###¤">${product.price}</fmt:formatNumber></td>
+                                            <td class="align-middle">${product.discount * 100}%</td>
+                                            <td class="align-middle">${product.quantity}</td>
+                                            <td class="align-middle"><a class="product-name-in-cart" href="product-manager?go=update&id=${product.id}">Update</a></td>
+                                            <td class="align-middle">
+                                                <a class="product-name-in-cart" href="product-manager?go=delete&id=${product.id}">Delete</a>
+                                            </td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>
                             </table>
                         </c:when>
-                        <c:when test="${param.go == 'update' && userToUpdate != null}">
+                        <c:when test="${param.go == 'update' && productToUpdate != null}">
                             <div class="col-10">
                                 <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Sign Up</span></h5>
                                 <div class="bg-light p-30 mb-5">
                                     <div class="row">
-                                        <form class="row" action="customer-manager" method="POST">
+                                        <form class="row" action="product-manager" method="POST">
                                             <div class="col-md-6 form-group">
-                                                <input type="hidden" name="userToUpdateId" value="${userToUpdate.id}">
-                                                <input type="hidden" name="role" value="${userToUpdate.role}">
-                                                <label>First Name</label>
-                                                <input name="firstName" class="form-control" type="text" placeholder="John" value="${userToUpdate.firstName}" required>
+                                                <input type="hidden" name="productToUpdateId" value="${productToUpdate.id}">
+                                                <label>Name</label>
+                                                <input name="name" class="form-control" type="text" placeholder="" value="${productToUpdate.name}" required>
                                             </div>
                                             <div class="col-md-6 form-group">
-                                                <label>Last Name</label>
-                                                <input name="lastName" class="form-control" type="text" placeholder="Doe" value="${userToUpdate.lastName}" required>
+                                                <label>Category</label>
+                                                <select class="custom-select" name="categoryId">
+                                                    <c:forEach items="${categories}" var="cate">
+                                                        <option value="${cate.id}">${cate.name}</option>
+                                                    </c:forEach>
+                                                </select>
                                             </div>
                                             <div class="col-md-6 form-group">
-                                                <label>Street</label>
-                                                <input name="street" class="form-control" type="text" placeholder="Street" value="${userToUpdate.street}" required>
+                                                <label>Brand</label>
+                                                <select class="custom-select" name="brandId">
+                                                    <c:forEach items="${brands}" var="brand">
+                                                        <option value="${brand.id}">${brand.name}</option>
+                                                    </c:forEach>
+                                                </select>
                                             </div>
                                             <div class="col-md-6 form-group">
-                                                <label>City</label>
-                                                <input name="city" class="form-control" type="text" placeholder="City" value="${userToUpdate.city}" required>
+                                                <label>Price</label>
+                                                <input name="price" class="form-control" type="number" placeholder="" value="${productToUpdate.price}" required>
                                             </div>
                                             <div class="col-md-6 form-group">
-                                                <label>Province</label>
-                                                <input name="province" class="form-control" type="text" placeholder="Province" value="${userToUpdate.province}" required>
+                                                <label>Discount</label>
+                                                <input name="discount" class="form-control" type="number" placeholder="" value="${productToUpdate.discount * 100}" required>
                                             </div>
                                             <div class="col-md-6 form-group">
-                                                <label>Country</label>
-                                                <input name="country" class="form-control" type="text" placeholder="Country" value="${userToUpdate.country}" required>
-                                            </div>
-                                            <div class="col-md-6 form-group">
-                                                <label>E-mail</label>
-                                                <input name="email" class="form-control" type="email" placeholder="example@email.com" value="${userToUpdate.email}" required>
-                                            </div>
-                                            <div class="col-md-6 form-group">
-                                                <label>Mobile No</label>
-                                                <input name="phone" class="form-control" type="tel" placeholder="123 456 7890" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" title="Ten digits code" value="${userToUpdate.phone}" required>
+                                                <label>Quantity</label>
+                                                <input name="quantity" class="form-control" type="number" placeholder="" value="${productToUpdate.quantity}" required>
                                             </div>
                                             <div class="col-md-12 form-group">
                                                 <div class="row">
@@ -178,7 +182,7 @@
                                                         <input name="reset" class="form-control btn btn-primary" type="reset" value="Reset">
                                                     </div>
                                                     <div class="col-md-3 form-group">
-                                                        <input name="adminCustomerUpdateSubmit" class="form-control btn btn-primary" type="submit" value="Update">
+                                                        <input name="adminProductUpdateSubmit" class="form-control btn btn-primary" type="submit" value="Update">
                                                     </div>
                                                     <div class="col-md-3 form-group">
                                                     </div>

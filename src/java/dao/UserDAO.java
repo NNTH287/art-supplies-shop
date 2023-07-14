@@ -300,6 +300,37 @@ public class UserDAO extends jdbc.DBConnect {
         return rowsAffected;
     }
 
+    public int deleteUser(User user) {
+        int rowsAffected = 0;
+        deleteUserPayment(user.getId());
+        String sql = "DELETE FROM [dbo].[User]\n"
+                + " WHERE id = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setInt(1, user.getId());
+            int affectedRows = pre.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return rowsAffected;
+    }
+    
+    public int deleteUserPayment(int userId) {
+        int rowsAffected = 0;
+        String sql = "DELETE FROM [dbo].[UserPayment]\n"
+                + " WHERE userId = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setInt(1, userId);
+            int affectedRows = pre.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return rowsAffected;
+    }
+    
     public static void main(String[] args) {
         UserDAO dao = new UserDAO();
         Vector<String> v = dao.getPaymentInfo(1, 1);

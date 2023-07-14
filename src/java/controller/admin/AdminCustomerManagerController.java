@@ -63,6 +63,8 @@ public class AdminCustomerManagerController extends HttpServlet {
             UserDAO udao = new UserDAO();
             Vector<User> users = udao.getAll();
             request.setAttribute("users", users);
+            
+            request.getRequestDispatcher("/jsp/adminCustomerManagerPage.jsp").forward(request, response);
         } else if (service.equals("update")) {
             if (!isUserExists(request)) {
                 Helper.setNotification(request, "User doesn't exists!", "RED");
@@ -71,10 +73,21 @@ public class AdminCustomerManagerController extends HttpServlet {
                 int userId = Integer.parseInt(request.getParameter("id"));
                 User userToUpdate = udao.getById(userId);
                 request.setAttribute("userToUpdate", userToUpdate);
+                
+                request.getRequestDispatcher("/jsp/adminCustomerManagerPage.jsp").forward(request, response);
+            }
+        } else if (service.equals("delete")) {
+            if (!isUserExists(request)) {
+                Helper.setNotification(request, "User doesn't exists!", "RED");
+            } else {
+                UserDAO udao = new UserDAO();
+                int userId = Integer.parseInt(request.getParameter("id"));
+                User userToDelete = udao.getById(userId);
+                udao.deleteUser(userToDelete);
+                
+                response.sendRedirect("customer-manager");
             }
         }
-
-        request.getRequestDispatcher("/jsp/adminCustomerManagerPage.jsp").forward(request, response);
     }
 
     /**
@@ -88,12 +101,13 @@ public class AdminCustomerManagerController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String submit = request.getParameter("adminCustomerUpdateSubmit");
         UserDAO udao = new UserDAO();
         if (request.getParameter("adminSearchCustomerSubmit") != null) {
             String keyword = request.getParameter("searchName");
             Vector<User> users = udao.getByName(keyword);
+            
             request.setAttribute("users", users);
+            request.getRequestDispatcher("/jsp/adminCustomerManagerPage.jsp").forward(request, response);
         } else if (request.getParameter("adminCustomerUpdateSubmit") != null) {
             int id = Integer.parseInt(request.getParameter("userToUpdateId"));
             String role = request.getParameter("role");
